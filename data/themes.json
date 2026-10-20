@@ -1,0 +1,9 @@
+{
+  "vampire":    { "title": "", "edition": "Vampiro: A Máscara · 20º Aniversário", "headerFont": "display" },
+  "werewolf":   { "title": "", "edition": "Lobisomem: O Apocalipse · 20º Aniversário", "headerFont": "display" },
+  "mage":       { "title": "", "edition": "Mago: A Ascensão · 20º Aniversário", "headerFont": "serif" },
+  "hunter":     { "title": "", "edition": "Caçador: A Revanche · 20º Aniversário", "headerFont": "display" },
+  "changeling": { "title": "", "edition": "Changeling: O Sonho · 20º Aniversário", "headerFont": "display" },
+  "wraith":     { "title": "", "edition": "Wraith: O Ocaso · 20º Aniversário", "headerFont": "display" },
+  "mortal":     { "title": "", "edition": "Mortal · 20º Aniversário", "headerFont": "display" }
+}

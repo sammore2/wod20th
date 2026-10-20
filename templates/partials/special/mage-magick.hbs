@@ -1,0 +1,63 @@
+<div class="wod-magick-panel">
+  <div class="wod-section-title">
+    <h3>{{localize "system.mage.spheresTitle"}}</h3>
+    <span class="wod-subtitle">{{localize "system.mage.spheresSubtitle"}}</span>
+  </div>
+
+  <!-- MATRIZ DAS 9 ESFERAS -->
+  <div class="wod-columns-3">
+    {{#each mageSpheresList}}
+    <div class="wod-trait-row">
+      <span class="wod-sphere-label">🔮 {{localize this.labelKey}}</span>
+      <div class="wod-dots-track">
+        {{#each this.dots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="spheres.{{../key}}" data-index="{{this.index}}" data-min="0"></span>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  <!-- CALCULADORA DE MÁGIKA & FEITIÇARIA -->
+  <div class="wod-section" style="margin-top: 20px;">
+    <div class="wod-section-title">
+      <h3>{{localize "system.mage.castingTitle"}}</h3>
+      <span class="wod-subtitle">{{localize "system.mage.castingSubtitle"}}</span>
+    </div>
+
+    <div class="wod-casting-box">
+      <div class="wod-field-row">
+        <div class="wod-field">
+          <label>{{localize "system.mage.highestSphere"}}: </label>
+          <input type="number" id="wod-mage-sphere-level" min="1" max="5" value="1" class="wod-mini-num" />
+        </div>
+        <div class="wod-field">
+          <label>{{localize "system.mage.castingType"}}:</label>
+          <select id="wod-mage-cast-type" class="wod-select">
+            <option value="coincidental">{{localize "system.mage.coincidental"}} (+3)</option>
+            <option value="vulgar">{{localize "system.mage.vulgar"}} (+4)</option>
+            <option value="vulgar_witnessed">{{localize "system.mage.vulgarWitnessed"}} (+5)</option>
+          </select>
+        </div>
+        <div class="wod-field">
+          <label>{{localize "system.mage.quintSpent"}}:</label>
+          <input type="number" id="wod-mage-quint-spent" min="0" max="3" value="0" class="wod-mini-num" />
+        </div>
+      </div>
+
+      <div class="wod-casting-actions" style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <div class="wod-casting-preview">
+          <span>{{localize "system.mage.estimatedDiff"}}: <strong id="wod-mage-diff-preview" style="color: var(--wod-gold); font-size: 16px;">4</strong></span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="wod-btn wod-btn-danger wod-btn-paradox-backlash" title="{{localize "system.mage.backlashHint"}}">
+            ⚡ {{localize "system.mage.paradoxBacklash"}} ({{system.paradox.value}} Paradoxo)
+          </button>
+          <button type="button" class="wod-btn wod20th-btn-roll wod-btn-cast-spell">
+            ✨ {{localize "system.mage.castSpell"}} (Arete {{system.arete.value}})
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

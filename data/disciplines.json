@@ -1,0 +1,898 @@
+{
+  "auspex": {
+    "name": "Auspícios",
+    "englishName": "Auspex",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "perception",
+        "poolAbility": "alertness",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "perception",
+        "poolAbility": "empathy",
+        "difficulty": 8,
+        "cost": "Gratuito",
+        "duration": "Instantâneo",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "perception",
+        "poolAbility": "occult",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "Instantâneo",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "intelligence",
+        "poolAbility": "subterfuge",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "perception",
+        "poolAbility": "awareness",
+        "difficulty": 7,
+        "cost": "1 Força de Vontade",
+        "duration": "Horas",
+        "description": ""
+      }
+    ]
+  },
+  "celerity": {
+    "name": "Celeridade / Rapidez",
+    "englishName": "Celerity",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "dexterity",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Turno",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "dexterity",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "2 Sangue",
+        "duration": "1 Turno",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "dexterity",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "3 Sangue",
+        "duration": "1 Turno",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "dexterity",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "4 Sangue",
+        "duration": "1 Turno",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "dexterity",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "5 Sangue",
+        "duration": "1 Turno",
+        "description": ""
+      }
+    ]
+  },
+  "potence": {
+    "name": "Potência",
+    "englishName": "Potence",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "strength",
+        "poolAbility": "athletics",
+        "difficulty": 6,
+        "cost": "Passivo / 1 Sangue",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "strength",
+        "poolAbility": "athletics",
+        "difficulty": 6,
+        "cost": "Passivo / 1 Sangue",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "strength",
+        "poolAbility": "athletics",
+        "difficulty": 6,
+        "cost": "Passivo / 1 Sangue",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "strength",
+        "poolAbility": "athletics",
+        "difficulty": 6,
+        "cost": "Passivo / 1 Sangue",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "strength",
+        "poolAbility": "athletics",
+        "difficulty": 6,
+        "cost": "Passivo / 1 Sangue",
+        "duration": "Permanente",
+        "description": ""
+      }
+    ]
+  },
+  "fortitude": {
+    "name": "Fortitude",
+    "englishName": "Fortitude",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "stamina",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "Passivo",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "stamina",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "Passivo",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "stamina",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "Passivo",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "stamina",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "Passivo",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "stamina",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "Passivo",
+        "duration": "Permanente",
+        "description": ""
+      }
+    ]
+  },
+  "dominate": {
+    "name": "Dominação",
+    "englishName": "Dominate",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "manipulation",
+        "poolAbility": "intimidation",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Ação",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "manipulation",
+        "poolAbility": "leadership",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "Variável",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "wits",
+        "poolAbility": "subterfuge",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "manipulation",
+        "poolAbility": "leadership",
+        "difficulty": 8,
+        "cost": "Gratuito",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "charisma",
+        "poolAbility": "intimidation",
+        "difficulty": 7,
+        "cost": "1 Força de Vontade",
+        "duration": "Variável",
+        "description": ""
+      }
+    ]
+  },
+  "presence": {
+    "name": "Presença",
+    "englishName": "Presence",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "charisma",
+        "poolAbility": "performance",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "charisma",
+        "poolAbility": "intimidation",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Turno",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "appearance",
+        "poolAbility": "empathy",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "Horas/Dias",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "charisma",
+        "poolAbility": "leadership",
+        "difficulty": 7,
+        "cost": "1 Sangue",
+        "duration": "Variável",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "charisma",
+        "poolAbility": "intimidation",
+        "difficulty": 6,
+        "cost": "1 Força de Vontade",
+        "duration": "1 Cena",
+        "description": ""
+      }
+    ]
+  },
+  "obfuscate": {
+    "name": "Ofuscação",
+    "englishName": "Obfuscate",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "wits",
+        "poolAbility": "stealth",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "Variável",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "wits",
+        "poolAbility": "stealth",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "manipulation",
+        "poolAbility": "performance",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "wits",
+        "poolAbility": "stealth",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "Instantâneo",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "wits",
+        "poolAbility": "stealth",
+        "difficulty": 7,
+        "cost": "1 Força de Vontade",
+        "duration": "1 Cena",
+        "description": ""
+      }
+    ]
+  },
+  "protean": {
+    "name": "Metamorfose",
+    "englishName": "Protean",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "perception",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "dexterity",
+        "poolAbility": "brawl",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "stamina",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "Até o despertar",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "stamina",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "stamina",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      }
+    ]
+  },
+  "animalism": {
+    "name": "Animalismo",
+    "englishName": "Animalism",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "manipulation",
+        "poolAbility": "animalKen",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "charisma",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "Horas",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "charisma",
+        "poolAbility": "empathy",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "manipulation",
+        "poolAbility": "animalKen",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "Variável",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "manipulation",
+        "poolAbility": "intimidation",
+        "difficulty": 8,
+        "cost": "1 Força de Vontade",
+        "duration": "Instantâneo",
+        "description": ""
+      }
+    ]
+  },
+  "thaumaturgy": {
+    "name": "Taumaturgia (Linha do Sangue)",
+    "englishName": "Thaumaturgy",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "perception",
+        "poolAbility": "occult",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "Instantâneo",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "wits",
+        "poolAbility": "occult",
+        "difficulty": 7,
+        "cost": "1 Sangue",
+        "duration": "1 Turno",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "intelligence",
+        "poolAbility": "occult",
+        "difficulty": 8,
+        "cost": "1 Força de Vontade",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "intelligence",
+        "poolAbility": "occult",
+        "difficulty": 8,
+        "cost": "1 Força de Vontade",
+        "duration": "Instantâneo",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "willpower",
+        "poolAbility": "occult",
+        "difficulty": 8,
+        "cost": "1 Força de Vontade",
+        "duration": "Instantâneo",
+        "description": ""
+      }
+    ]
+  },
+  "necromancy": {
+    "name": "Necromancia (Linha do Sepulcro)",
+    "englishName": "Necromancy",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "perception",
+        "poolAbility": "occult",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "manipulation",
+        "poolAbility": "occult",
+        "difficulty": 7,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "manipulation",
+        "poolAbility": "occult",
+        "difficulty": 7,
+        "cost": "1 Força de Vontade",
+        "duration": "Variável",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "manipulation",
+        "poolAbility": "occult",
+        "difficulty": 8,
+        "cost": "1 Sangue",
+        "duration": "Horas",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "manipulation",
+        "poolAbility": "occult",
+        "difficulty": 8,
+        "cost": "1 Força de Vontade",
+        "duration": "Instantâneo",
+        "description": ""
+      }
+    ]
+  },
+  "dementation": {
+    "name": "Dementação",
+    "englishName": "Dementation",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "charisma",
+        "poolAbility": "empathy",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "manipulation",
+        "poolAbility": "empathy",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "1 Noite",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "perception",
+        "poolAbility": "occult",
+        "difficulty": 7,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "manipulation",
+        "poolAbility": "empathy",
+        "difficulty": 7,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "manipulation",
+        "poolAbility": "intimidation",
+        "difficulty": 7,
+        "cost": "1 Força de Vontade",
+        "duration": "Variável",
+        "description": ""
+      }
+    ]
+  },
+  "obtenebration": {
+    "name": "Tenebrosidade",
+    "englishName": "Obtenebration",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "wits",
+        "poolAbility": "occult",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "manipulation",
+        "poolAbility": "occult",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "manipulation",
+        "poolAbility": "occult",
+        "difficulty": 7,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "wits",
+        "poolAbility": "occult",
+        "difficulty": 7,
+        "cost": "2 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "stamina",
+        "poolAbility": "occult",
+        "difficulty": 6,
+        "cost": "3 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      }
+    ]
+  },
+  "vicissitude": {
+    "name": "Vicissitude",
+    "englishName": "Vicissitude",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "dexterity",
+        "poolAbility": "medicine",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "dexterity",
+        "poolAbility": "medicine",
+        "difficulty": 7,
+        "cost": "1 Sangue",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "strength",
+        "poolAbility": "medicine",
+        "difficulty": 7,
+        "cost": "1 Sangue",
+        "duration": "Permanente",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "stamina",
+        "poolAbility": "medicine",
+        "difficulty": 6,
+        "cost": "2 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "stamina",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "Passivo",
+        "duration": "Permanente",
+        "description": ""
+      }
+    ]
+  },
+  "serpentis": {
+    "name": "Serpentis",
+    "englishName": "Serpentis",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "charisma",
+        "poolAbility": "intimidation",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "dexterity",
+        "poolAbility": "brawl",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "stamina",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "stamina",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "willpower",
+        "poolAbility": "occult",
+        "difficulty": 8,
+        "cost": "1 Força de Vontade",
+        "duration": "Permanente",
+        "description": ""
+      }
+    ]
+  },
+  "quietus": {
+    "name": "Quietus",
+    "englishName": "Quietus",
+    "powers": [
+      {
+        "level": 1,
+        "name": "Poder de nível 1",
+        "poolAttribute": "willpower",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "Gratuito",
+        "duration": "1 Cena",
+        "description": ""
+      },
+      {
+        "level": 2,
+        "name": "Poder de nível 2",
+        "poolAttribute": "willpower",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Golpe",
+        "description": ""
+      },
+      {
+        "level": 3,
+        "name": "Poder de nível 3",
+        "poolAttribute": "stamina",
+        "poolAbility": "survival",
+        "difficulty": 6,
+        "cost": "1 Força de Vontade",
+        "duration": "Instantâneo",
+        "description": ""
+      },
+      {
+        "level": 4,
+        "name": "Poder de nível 4",
+        "poolAttribute": "willpower",
+        "poolAbility": "",
+        "difficulty": 6,
+        "cost": "1 Sangue",
+        "duration": "1 Golpe",
+        "description": ""
+      },
+      {
+        "level": 5,
+        "name": "Poder de nível 5",
+        "poolAttribute": "dexterity",
+        "poolAbility": "athletics",
+        "difficulty": 6,
+        "cost": "1+ Sangue",
+        "duration": "Instantâneo",
+        "description": ""
+      }
+    ]
+  }
+}

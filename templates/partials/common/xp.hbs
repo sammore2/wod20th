@@ -1,0 +1,52 @@
+<div class="wod-xp-panel">
+  <div class="wod-section-title">
+    <h3>Experiência</h3>
+    <span class="wod-subtitle">Onde os pontos são ganhos e gastos</span>
+  </div>
+
+  <div class="wod-xp-summary">
+    <div class="wod-xp-stat">
+      <span class="wod-xp-stat-label">Ganho</span>
+      <span class="wod-xp-stat-value">{{xpSummary.earned}}</span>
+    </div>
+    <div class="wod-xp-stat">
+      <span class="wod-xp-stat-label">Gasto</span>
+      <span class="wod-xp-stat-value">{{xpSummary.spent}}</span>
+    </div>
+    <div class="wod-xp-stat wod-xp-stat-available">
+      <span class="wod-xp-stat-label">Não gasto</span>
+      <span class="wod-xp-stat-value">{{xpSummary.available}}</span>
+    </div>
+  </div>
+
+  <div class="wod-item-header">
+    <h4 class="wod-column-header">Registro</h4>
+    <button type="button" class="wod-btn-add-xp" title="Registrar ganho ou gasto de experiência">+ Registrar</button>
+  </div>
+
+  <table class="wod-xp-table">
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th>Categoria</th>
+        <th>Descrição</th>
+        <th class="wod-xp-num">Pontos</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each xpLog}}
+      <tr class="wod-xp-row {{#if this.isEarn}}earn{{else}}spend{{/if}}">
+        <td>{{#if this.isEarn}}Ganho{{else}}Gasto{{/if}}</td>
+        <td>{{this.category}}</td>
+        <td>{{this.note}}</td>
+        <td class="wod-xp-num">{{#if this.isEarn}}+{{else}}-{{/if}}{{this.amount}}</td>
+        <td><button type="button" class="wod-xp-delete" data-index="{{this.index}}" title="Remover este registro">&times;</button></td>
+      </tr>
+      {{/each}}
+      {{#unless xpLog.length}}
+      <tr><td colspan="5" class="wod-empty-msg">Nenhum registro ainda.</td></tr>
+      {{/unless}}
+    </tbody>
+  </table>
+</div>

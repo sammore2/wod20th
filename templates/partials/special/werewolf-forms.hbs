@@ -1,0 +1,95 @@
+<div class="wod-forms-panel">
+  <div class="wod-section-title">
+    <h3>{{localize "system.werewolf.formsTitle"}}</h3>
+    <span class="wod-subtitle">{{localize "system.werewolf.formsSubtitle"}}</span>
+  </div>
+
+  <div class="wod-forms-grid">
+    {{#each werewolfFormsList}}
+    <div class="wod-form-card {{#if this.isActive}}active{{/if}}" data-form="{{this.key}}">
+      <div class="wod-form-header">
+        <span class="wod-form-name">{{localize this.labelKey}}</span>
+        {{#if this.isActive}}
+        <span class="wod-form-active-badge">{{localize "system.werewolf.activeForm"}}</span>
+        {{else}}
+        <div class="wod-form-btn-group">
+          <button type="button" class="wod-form-shift-btn" data-form="{{this.key}}" data-diff="{{this.diff}}" title="{{localize "system.werewolf.shiftTestHint"}}">
+            🎲 {{localize "system.werewolf.shiftTo"}} (Dif {{this.diff}})
+          </button>
+          <button type="button" class="wod-form-rage-shift-btn" data-form="{{this.key}}" title="{{localize "system.werewolf.rageShiftHint"}}">
+            ⚡ 1 {{localize "system.werewolf.rage"}}
+          </button>
+        </div>
+        {{/if}}
+      </div>
+
+      <div class="wod-form-mods">
+        {{#if this.modsText}}
+        <span class="wod-form-mod-text">{{this.modsText}}</span>
+        {{else}}
+        <span class="wod-form-mod-text">{{localize "system.werewolf.noMods"}}</span>
+        {{/if}}
+      </div>
+
+      <div class="wod-form-traits">
+        {{#if this.incitesDelirium}}
+        <span class="wod-badge wod-badge-danger">⚠️ {{localize "system.werewolf.delirium"}}</span>
+        {{/if}}
+        {{#if (eq this.damageType 'aggravated')}}
+        <span class="wod-badge wod-badge-crit">⚔ {{localize "system.werewolf.aggravatedClaws"}}</span>
+        {{/if}}
+        {{#if this.regenerates}}
+        <span class="wod-badge wod-badge-success">💚 {{localize "system.werewolf.quickRegen"}}</span>
+        {{/if}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  <div class="wod-active-form-details" style="margin-top: 15px;">
+    <h4 class="wod-column-header">{{localize "system.werewolf.currentFormStats"}}: <strong>{{localize activeFormDetails.labelKey}}</strong></h4>
+    <div class="wod-combat-stats">
+      <div class="wod-stat-card">
+        <span class="wod-stat-num">{{derived.activeAttributes.strength}}</span>
+        <span class="wod-stat-label">{{localize "system.attributes.strength"}}</span>
+      </div>
+      <div class="wod-stat-card">
+        <span class="wod-stat-num">{{derived.activeAttributes.dexterity}}</span>
+        <span class="wod-stat-label">{{localize "system.attributes.dexterity"}}</span>
+      </div>
+      <div class="wod-stat-card">
+        <span class="wod-stat-num">{{derived.activeAttributes.stamina}}</span>
+        <span class="wod-stat-label">{{localize "system.attributes.stamina"}}</span>
+      </div>
+      <div class="wod-stat-card">
+        <span class="wod-stat-num">{{derived.activeAttributes.manipulation}}</span>
+        <span class="wod-stat-label">{{localize "system.attributes.manipulation"}}</span>
+      </div>
+      <div class="wod-stat-card">
+        <span class="wod-stat-num">{{derived.activeAttributes.appearance}}</span>
+        <span class="wod-stat-label">{{localize "system.attributes.appearance"}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AÇÕES ESPECÍFICAS DE LOBISOMEM (W20) -->
+  <div class="wod-section" style="margin-top: 20px;">
+    <div class="wod-section-title">
+      <h3>{{localize "system.werewolf.garouActions"}}</h3>
+    </div>
+    <div class="wod-garou-actions" style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <button type="button" class="wod-btn wod-btn-success wod-werewolf-regen" title="{{localize "system.werewolf.regenHint"}}">
+        💚 {{localize "system.werewolf.regenWound"}}
+      </button>
+      <button type="button" class="wod-btn wod20th-btn-roll wod-werewolf-frenzy" title="{{localize "system.werewolf.frenzyHint"}}">
+        🐺 {{localize "system.werewolf.frenzyTest"}}
+      </button>
+      <button type="button" class="wod-btn wod20th-btn-roll wod-werewolf-umbra" title="{{localize "system.werewolf.umbraHint"}}">
+        🌌 {{localize "system.werewolf.stepSideways"}}
+      </button>
+      <button type="button" class="wod-btn wod-btn-danger wod-werewolf-extra-actions" title="{{localize "system.werewolf.extraActionsHint"}}">
+        ⚡ {{localize "system.werewolf.extraActions"}} (1 Fúria)
+      </button>
+    </div>
+  </div>
+</div>

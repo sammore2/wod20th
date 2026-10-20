@@ -1,0 +1,26 @@
+<section class="wod-section">
+  <div class="wod-section-title">
+    <h3>{{localize "system.sheet.attributes"}}</h3>
+    <span class="wod-subtitle">{{localize "system.sheet.comboSubtitle"}}</span>
+  </div>
+
+  <div class="wod-columns-3">
+    {{#each attributeGroups}}
+    <div class="wod-column">
+      <h4 class="wod-column-header">{{localize this.labelKey}}</h4>
+      {{#each this.attributes}}
+      <div class="wod-trait-row">
+        <button type="button" class="wod-roll-attr" data-attr="{{this.key}}" data-label-key="{{this.labelKey}}" data-val="{{this.value}}" title="{{localize "system.sheet.attrTooltip"}}">
+          {{localize this.labelKey}}
+        </button>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="{{../path}}" data-index="{{this.index}}" data-min="{{#if (eq ../key 'appearance')}}0{{else}}1{{/if}}"></span>
+          {{/each}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
+</section>

@@ -1,0 +1,68 @@
+{
+  "engine": "loom",
+  "engineVersion": ">=0.1.0",
+  "type": "ruleset",
+  "name": "wod20th",
+  "title": "World of Darkness 20th Edition",
+  "version": "0.1.0",
+  "author": "SamDev",
+  "description": "Estrutura inicial do sistema World of Darkness 20th Edition para LoomVTT.",
+  "license": "MIT",
+  "active": true,
+  "client": "client.mjs",
+  "styles": [
+    "styles/system.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR.json"
+    }
+  ],
+  "actorTypes": [
+    "mortal",
+    "vampire",
+    "werewolf",
+    "mage",
+    "hunter",
+    "changeling",
+    "wraith",
+    "npc",
+    "group"
+  ],
+  "itemTypes": [
+    "weapon",
+    "armor",
+    "gear",
+    "merit",
+    "flaw",
+    "background",
+    "discipline",
+    "ritual",
+    "gift",
+    "rite",
+    "fetish",
+    "talen",
+    "totem",
+    "rote",
+    "wonder",
+    "grimoire",
+    "talisman",
+    "artifact",
+    "art",
+    "realm",
+    "arcanoi",
+    "power",
+    "condition",
+    "path",
+    "edge",
+    "derangement",
+    "passion"
+  ]
+}

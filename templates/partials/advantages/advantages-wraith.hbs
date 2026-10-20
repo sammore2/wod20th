@@ -1,0 +1,153 @@
+<div class="wod-columns-3">
+  <!-- COLUNA 1: ARCANOI & ARTEFATOS -->
+  <div class="wod-column">
+    <div class="wod-item-header">
+      <h4 class="wod-column-header">💀 {{localize "system.wraith.arcanoi"}}</h4>
+      <button type="button" class="wod-btn-add-item" data-type="arcanoi" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.arcanoi}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <button type="button" class="wod-roll-item-power" data-id="{{this.id}}" data-name="{{this.name}}" data-level="{{this.level}}" title="Ativar Arcanoi {{this.name}}">
+          <i class="fas fa-dice-d10"></i>
+        </button>
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">{{this.name}}</span>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
+          {{/each}}
+        </div>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.arcanoi.length}}
+      <div class="wod-empty-msg">Nenhum Arcanoi cadastrado</div>
+      {{/unless}}
+    </div>
+
+    <!-- RELÍQUIAS & ARTEFATOS -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">🏺 Relíquias & Artefatos</h4>
+      <button type="button" class="wod-btn-add-item" data-type="artifact" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.artifacts}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">🏺 {{this.name}}</span>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.artifacts.length}}
+      <div class="wod-empty-msg">Nenhuma relíquia cadastrada</div>
+      {{/unless}}
+    </div>
+  </div>
+
+  <!-- COLUNA 2: CORPUS, PATHOS, ANGST & SOMBRA -->
+  <div class="wod-column">
+    <!-- CORPUS -->
+    <div class="wod-pool-block">
+      <label><strong>{{localize "system.wraith.corpus"}} (Vitalidade Espectral)</strong></label>
+      <div class="wod-boxes-track wod-boxes-10">
+        {{#each corpusBoxes}}
+        <span class="wod-box {{#if this.checked}}checked{{/if}}" data-path="corpus" data-index="{{this.index}}"></span>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- PATHOS -->
+    <div class="wod-pool-block" style="margin-top: 10px;">
+      <label><strong>{{localize "system.wraith.pathos"}} (Paixão)</strong></label>
+      <div class="wod-boxes-track wod-boxes-10">
+        {{#each pathosBoxes}}
+        <span class="wod-box {{#if this.checked}}checked{{/if}}" data-path="pathos" data-index="{{this.index}}"></span>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- ANGST -->
+    <div class="wod-pool-block" style="margin-top: 10px;">
+      <label><strong>{{localize "system.wraith.angst"}} (Angústia)</strong></label>
+      <div class="wod-dots-track wod-dots-10">
+        {{#each angstDots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="angst.value" data-index="{{this.index}}" data-min="0"></span>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- ANTECEDENTES -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">{{localize "system.sheet.backgrounds"}}</h4>
+      <button type="button" class="wod-btn-add-item" data-type="background" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.backgrounds}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <button type="button" class="wod-roll-item-power" data-id="{{this.id}}" data-name="{{this.name}}" data-level="{{this.level}}" title="Rolar {{this.name}}">
+          <i class="fas fa-dice-d10"></i>
+        </button>
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}" title="Editar {{this.name}}">{{this.name}}</span>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
+          {{/each}}
+        </div>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.backgrounds.length}}
+      <div class="wod-empty-msg">{{localize "system.sheet.emptyBackgrounds"}}</div>
+      {{/unless}}
+    </div>
+  </div>
+
+  <!-- COLUNA 3: FORÇA DE VONTADE, QUALIDADES & DEFEITOS -->
+  <div class="wod-column">
+    <div class="wod-item-header">
+      <button type="button" class="wod-roll-willpower wod-column-header-btn" title="Rolar Força de Vontade">
+        {{localize "system.sheet.willpower"}} 🎲
+      </button>
+    </div>
+    <div class="wod-pool-block">
+      <label>{{localize "system.sheet.permanent"}}:</label>
+      <div class="wod-dots-track wod-dots-10">
+        {{#each willpowerDots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="willpower.max" data-index="{{this.index}}" data-min="1"></span>
+        {{/each}}
+      </div>
+
+      <label style="margin-top: 12px;">{{localize "system.sheet.temporary"}} (Marcador "✕"):</label>
+      <div class="wod-boxes-track wod-boxes-10">
+        {{#each willpowerBoxes}}
+        <span class="wod-box {{#if this.checked}}checked{{/if}}" data-path="willpower" data-index="{{this.index}}"></span>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- QUALIDADES & DEFEITOS -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">{{localize "system.sheet.meritsFlaws"}}</h4>
+      <div style="display: flex; gap: 4px;">
+        <button type="button" class="wod-btn-add-item" data-type="merit" title="Adicionar Qualidade">+ Qualidade</button>
+        <button type="button" class="wod-btn-add-item" data-type="flaw" title="Adicionar Defeito">+ Defeito</button>
+      </div>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.meritsFlaws}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">
+          {{#if (eq this.type 'merit')}}🟢{{else}}🔴{{/if}} {{this.name}} ({{this.systemData.cost}} pts)
+        </span>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.meritsFlaws.length}}
+      <div class="wod-empty-msg">{{localize "system.sheet.emptyMeritsFlaws"}}</div>
+      {{/unless}}
+    </div>
+  </div>
+</div>

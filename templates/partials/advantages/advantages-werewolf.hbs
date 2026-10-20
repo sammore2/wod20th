@@ -1,0 +1,230 @@
+<div class="wod-columns-3">
+  <!-- COLUNA 1: DONS, RITOS & TOTEM -->
+  <div class="wod-column">
+    <div class="wod-item-header">
+      <h4 class="wod-column-header">{{localize "system.werewolf.gifts"}}</h4>
+      <button type="button" class="wod-btn-add-item" data-type="gift" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.gifts}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <button type="button" class="wod-roll-item-power" data-id="{{this.id}}" data-name="{{this.name}}" data-level="{{this.level}}" title="Ativar Dom {{this.name}}">
+          <i class="fas fa-dice-d10"></i>
+        </button>
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}" title="Editar Dom">{{this.name}}</span>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
+          {{/each}}
+        </div>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.gifts.length}}
+      <div class="wod-empty-msg">{{localize "system.werewolf.emptyGifts"}}</div>
+      {{/unless}}
+    </div>
+
+    <!-- RITOS -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">{{localize "system.werewolf.rites"}}</h4>
+      <button type="button" class="wod-btn-add-item" data-type="rite" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.rites}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <button type="button" class="wod-roll-item-power" data-id="{{this.id}}" data-name="{{this.name}}" data-level="{{this.level}}" title="Executar Ritual">
+          <i class="fas fa-dice-d10"></i>
+        </button>
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">{{this.name}}</span>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
+          {{/each}}
+        </div>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.rites.length}}
+      <div class="wod-empty-msg">{{localize "system.werewolf.emptyRites"}}</div>
+      {{/unless}}
+    </div>
+
+    <!-- TOTEM -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">{{localize "system.werewolf.totem"}}</h4>
+      <button type="button" class="wod-btn-add-item" data-type="totem" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.totems}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">🦅 {{this.name}} [Custo: {{this.systemData.cost}}]</span>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.totems.length}}
+      <div class="wod-empty-msg">{{localize "system.werewolf.emptyTotem"}}</div>
+      {{/unless}}
+    </div>
+  </div>
+
+  <!-- COLUNA 2: FETICHES, ANTECEDENTES & QUALIDADES/DEFEITOS -->
+  <div class="wod-column">
+    <div class="wod-item-header">
+      <h4 class="wod-column-header">{{localize "system.werewolf.fetishes"}} & Talis</h4>
+      <div style="display: flex; gap: 4px;">
+        <button type="button" class="wod-btn-add-item" data-type="fetish" title="Adicionar Fetiche">+ Fetiche</button>
+        <button type="button" class="wod-btn-add-item" data-type="talen" title="Adicionar Tali">+ Tali</button>
+      </div>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.fetishes}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">✨ {{this.name}} (Gnose {{this.systemData.gnosis}})</span>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#each itemsCategorized.talens}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">🏺 {{this.name}} (Gnose {{this.systemData.gnosis}})</span>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless (or itemsCategorized.fetishes.length itemsCategorized.talens.length)}}
+      <div class="wod-empty-msg">Nenhum fetiche ou tali cadastrado</div>
+      {{/unless}}
+    </div>
+
+    <!-- ANTECEDENTES -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">{{localize "system.sheet.backgrounds"}}</h4>
+      <button type="button" class="wod-btn-add-item" data-type="background" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.backgrounds}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <button type="button" class="wod-roll-item-power" data-id="{{this.id}}" data-name="{{this.name}}" data-level="{{this.level}}" title="Rolar {{this.name}}">
+          <i class="fas fa-dice-d10"></i>
+        </button>
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}" title="Editar {{this.name}}">{{this.name}}</span>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
+          {{/each}}
+        </div>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.backgrounds.length}}
+      <div class="wod-empty-msg">{{localize "system.sheet.emptyBackgrounds"}}</div>
+      {{/unless}}
+    </div>
+
+    <!-- QUALIDADES & DEFEITOS -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">{{localize "system.sheet.meritsFlaws"}}</h4>
+      <div style="display: flex; gap: 4px;">
+        <button type="button" class="wod-btn-add-item" data-type="merit" title="Adicionar Qualidade">+ Qualidade</button>
+        <button type="button" class="wod-btn-add-item" data-type="flaw" title="Adicionar Defeito">+ Defeito</button>
+      </div>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.meritsFlaws}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">
+          {{#if (eq this.type 'merit')}}🟢{{else}}🔴{{/if}} {{this.name}} ({{this.systemData.cost}} pts)
+        </span>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.meritsFlaws.length}}
+      <div class="wod-empty-msg">{{localize "system.sheet.emptyMeritsFlaws"}}</div>
+      {{/unless}}
+    </div>
+  </div>
+
+  <!-- COLUNA 3: FÚRIA, GNOSE, FORÇA DE VONTADE & RENOME -->
+  <div class="wod-column">
+    <!-- FÚRIA -->
+    <div class="wod-pool-block">
+      <div class="wod-item-header">
+        <label><strong>{{localize "system.werewolf.rage"}}</strong></label>
+        <button type="button" class="wod-btn-action wod-werewolf-frenzy" title="{{localize "system.werewolf.frenzyTooltip"}}">⚠️ {{localize "system.werewolf.frenzyTest"}}</button>
+      </div>
+      <div class="wod-dots-track wod-dots-10">
+        {{#each rageDots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="rage.max" data-index="{{this.index}}" data-min="1"></span>
+        {{/each}}
+      </div>
+      <div class="wod-boxes-track wod-boxes-10" style="margin-top: 6px;">
+        {{#each rageBoxes}}
+        <span class="wod-box {{#if this.checked}}checked{{/if}}" data-path="rage" data-index="{{this.index}}"></span>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- GNOSE -->
+    <div class="wod-pool-block" style="margin-top: 10px;">
+      <div class="wod-item-header">
+        <label><strong>{{localize "system.werewolf.gnosis"}}</strong></label>
+        <button type="button" class="wod-btn-action wod-werewolf-umbra" title="{{localize "system.werewolf.umbraTooltip"}}">🌌 {{localize "system.werewolf.stepSideways"}}</button>
+      </div>
+      <div class="wod-dots-track wod-dots-10">
+        {{#each gnosisDots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="gnosis.max" data-index="{{this.index}}" data-min="1"></span>
+        {{/each}}
+      </div>
+      <div class="wod-boxes-track wod-boxes-10" style="margin-top: 6px;">
+        {{#each gnosisBoxes}}
+        <span class="wod-box {{#if this.checked}}checked{{/if}}" data-path="gnosis" data-index="{{this.index}}"></span>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- FORÇA DE VONTADE -->
+    <div class="wod-pool-block" style="margin-top: 10px;">
+      <div class="wod-item-header">
+        <button type="button" class="wod-roll-willpower wod-column-header-btn" title="Rolar Força de Vontade">
+          {{localize "system.sheet.willpower"}} 🎲
+        </button>
+      </div>
+      <div class="wod-dots-track wod-dots-10">
+        {{#each willpowerDots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="willpower.max" data-index="{{this.index}}" data-min="1"></span>
+        {{/each}}
+      </div>
+      <div class="wod-boxes-track wod-boxes-10" style="margin-top: 6px;">
+        {{#each willpowerBoxes}}
+        <span class="wod-box {{#if this.checked}}checked{{/if}}" data-path="willpower" data-index="{{this.index}}"></span>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- RENOME -->
+    <div class="wod-pool-block" style="margin-top: 10px;">
+      <label><strong>{{localize "system.werewolf.renown"}}</strong></label>
+      <div class="wod-renown-row">
+        <span>{{localize "system.werewolf.glory"}}:</span>
+        <input type="number" name="systemData.renown.glory.perm" value="{{system.renown.glory.perm}}" class="wod-mini-num" title="Permanente" />
+        <input type="number" name="systemData.renown.glory.temp" value="{{system.renown.glory.temp}}" class="wod-mini-num" title="Temporário" />
+      </div>
+      <div class="wod-renown-row">
+        <span>{{localize "system.werewolf.honor"}}:</span>
+        <input type="number" name="systemData.renown.honor.perm" value="{{system.renown.honor.perm}}" class="wod-mini-num" title="Permanente" />
+        <input type="number" name="systemData.renown.honor.temp" value="{{system.renown.honor.temp}}" class="wod-mini-num" title="Temporário" />
+      </div>
+      <div class="wod-renown-row">
+        <span>{{localize "system.werewolf.wisdom"}}:</span>
+        <input type="number" name="systemData.renown.wisdom.perm" value="{{system.renown.wisdom.perm}}" class="wod-mini-num" title="Permanente" />
+        <input type="number" name="systemData.renown.wisdom.temp" value="{{system.renown.wisdom.temp}}" class="wod-mini-num" title="Temporário" />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<div class="wod-columns-3">
+  <!-- COLUNA 1: BORDAS / FACETAS (PODERES DE CAÇADOR) -->
+  <div class="wod-column">
+    <div class="wod-item-header">
+      <h4 class="wod-column-header">⚡ Bordas / Facetas (Poderes)</h4>
+      <button type="button" class="wod-btn-add-item" data-type="edge" title="Adicionar Borda ou Poder de Caçador">{{localize "system.sheet.add"}}</button>
+    </div>
+
+    <!-- LISTA DE BORDAS / PODERES -->
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.edges}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <button type="button" class="wod-roll-item-power" data-id="{{this.id}}" data-name="{{this.name}}" data-level="{{this.level}}" title="Ativar {{this.name}}">
+          <i class="fas fa-dice-d10"></i>
+        </button>
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}" title="Clique para editar a ficha da borda">{{this.name}}</span>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
+          {{/each}}
+        </div>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.edges.length}}
+      <div class="wod-empty-msg">Nenhuma borda ou poder cadastrado</div>
+      {{/unless}}
+    </div>
+
+    <!-- EQUIPAMENTO TÁTICO / INVESTIGAÇÃO -->
+    <div class="wod-item-header" style="margin-top: 20px;">
+      <h4 class="wod-column-header">🎒 Equipamento Tático</h4>
+      <button type="button" class="wod-btn-add-item" data-type="weapon" title="Adicionar Arma ou Equipamento">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.weapons}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">🔫 {{this.name}} [{{this.systemData.damage}}]</span>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.weapons.length}}
+      <div class="wod-empty-msg">Nenhuma arma cadastrada</div>
+      {{/unless}}
+    </div>
+  </div>
+
+  <!-- COLUNA 2: VIRTUDES, CONVICÇÃO & HUMANIDADE -->
+  <div class="wod-column">
+    <div class="wod-item-header">
+      <h4 class="wod-column-header">{{localize "system.sheet.virtues"}}</h4>
+    </div>
+
+    {{#each virtuesList}}
+    <div class="wod-trait-row wod-trait-stack">
+      <button type="button" class="wod-roll-virtue" data-virtue="{{this.key}}" data-label-key="{{this.labelKey}}" data-val="{{this.value}}" title="Rolar {{localize this.labelKey}}">
+        {{localize this.labelKey}}
+      </button>
+      <div class="wod-dots-track">
+        {{#each this.dots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="{{../path}}" data-index="{{this.index}}" data-min="1"></span>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+
+    <!-- CONVICÇÃO (CONVICTION DO CAÇADOR) -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <button type="button" class="wod-roll-conviction wod-column-header-btn" title="Clique para Rolar / Invocar Convicção">
+        ⚡ {{localize "system.hunter.conviction"}} 🎲
+      </button>
+    </div>
+    <div class="wod-pool-block">
+      <label>Convicção Base (Permanente):</label>
+      <div class="wod-dots-track wod-dots-10">
+        {{#each convictionDots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="conviction.max" data-index="{{this.index}}" data-min="1"></span>
+        {{/each}}
+      </div>
+
+      <label style="margin-top: 12px;">Convicção Atual (Marcador "✕" = Gasto):</label>
+      <div class="wod-boxes-track wod-boxes-10">
+        {{#each convictionBoxes}}
+        <span class="wod-box {{#if this.checked}}checked{{/if}}" data-path="conviction" data-index="{{this.index}}" title="Clique para gastar / recuperar"></span>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUNA 3: ANTECEDENTES, QUALIDADES & DEFEITOS, FORÇA DE VONTADE -->
+  <div class="wod-column">
+    <!-- FORÇA DE VONTADE -->
+    <div class="wod-item-header">
+      <button type="button" class="wod-roll-willpower wod-column-header-btn" title="Rolar Força de Vontade">
+        {{localize "system.sheet.willpower"}} 🎲
+      </button>
+    </div>
+    <div class="wod-pool-block">
+      <label>{{localize "system.sheet.permanent"}}:</label>
+      <div class="wod-dots-track wod-dots-10">
+        {{#each willpowerDots}}
+        <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="willpower.max" data-index="{{this.index}}" data-min="1"></span>
+        {{/each}}
+      </div>
+
+      <label style="margin-top: 10px;">{{localize "system.sheet.temporary"}} (Marcador "✕"):</label>
+      <div class="wod-boxes-track wod-boxes-10">
+        {{#each willpowerBoxes}}
+        <span class="wod-box {{#if this.checked}}checked{{/if}}" data-path="willpower" data-index="{{this.index}}"></span>
+        {{/each}}
+      </div>
+    </div>
+
+    <!-- ANTECEDENTES (ITENS) -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">{{localize "system.sheet.backgrounds"}}</h4>
+      <button type="button" class="wod-btn-add-item" data-type="background" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.backgrounds}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <button type="button" class="wod-roll-item-power" data-id="{{this.id}}" data-name="{{this.name}}" data-level="{{this.level}}" title="Rolar {{this.name}}">
+          <i class="fas fa-dice-d10"></i>
+        </button>
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}" title="Editar {{this.name}}">{{this.name}}</span>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
+          {{/each}}
+        </div>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.backgrounds.length}}
+      <div class="wod-empty-msg">{{localize "system.sheet.emptyBackgrounds"}}</div>
+      {{/unless}}
+    </div>
+
+    <!-- QUALIDADES & DEFEITOS -->
+    <div class="wod-item-header" style="margin-top: 18px;">
+      <h4 class="wod-column-header">{{localize "system.sheet.meritsFlaws"}}</h4>
+      <div style="display: flex; gap: 4px;">
+        <button type="button" class="wod-btn-add-item" data-type="merit" title="Adicionar Qualidade">+ Qualidade</button>
+        <button type="button" class="wod-btn-add-item" data-type="flaw" title="Adicionar Defeito">+ Defeito</button>
+      </div>
+    </div>
+    <div class="wod-trait-list">
+      {{#each itemsCategorized.meritsFlaws}}
+      <div class="wod-trait-row" data-id="{{this.id}}">
+        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}">
+          {{#if (eq this.type 'merit')}}🟢{{else}}🔴{{/if}} {{this.name}} ({{this.systemData.cost}} pts)
+        </span>
+        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
+        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+      {{/each}}
+      {{#unless itemsCategorized.meritsFlaws.length}}
+      <div class="wod-empty-msg">{{localize "system.sheet.emptyMeritsFlaws"}}</div>
+      {{/unless}}
+    </div>
+  </div>
+</div>

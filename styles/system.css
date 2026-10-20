@@ -1,0 +1,3578 @@
+/* World of Darkness 20th Edition - LoomVTT System Theme */
+
+:root {
+  --wod-bg-dark: #121214;
+  --wod-bg-card: #1c1c20;
+  --wod-bg-input: #26262b;
+  --wod-border: #3d3d45;
+  --wod-border-gold: #c59b27;
+  --wod-crimson: #9e1a1a;
+  --wod-crimson-bright: #e72a2a;
+  --wod-gold: #e2b740;
+  --wod-text: #e6e6e6;
+  --wod-text-muted: #9e9ea8;
+  --wod-font: "Cinzel", "Times New Roman", "Georgia", serif;
+  --wod-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Configuração da Janela no Loom */
+.loom-window.wod20th-gothic-sheet .loom-window-body {
+  padding: 0 !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+
+.wod20th-gothic-sheet .loom-window-body {
+  overflow: visible !important;
+}
+
+/* Ficha de Personagem */
+.wod20th-sheet {
+  background: transparent;
+  color: var(--wod-text);
+  font-family: var(--wod-font-sans);
+  padding: 16px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: visible !important;
+  position: relative;
+}
+
+/* Barra lateral de abas: trilho fino, ícones sem caixa; a aba ativa tem um indicador dourado na borda */
+.cp-side-tabs {
+  position: absolute;
+  left: -44px;
+  top: 36px;
+  width: 40px;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 0;
+  background: linear-gradient(90deg, rgba(14, 12, 16, 0.97), rgba(22, 18, 24, 0.94));
+  border: 1px solid rgba(200, 160, 80, 0.25);
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  box-shadow: -4px 4px 14px rgba(0, 0, 0, 0.7);
+  z-index: 50;
+}
+
+.cp-side-tabs .wod-tab-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--wod-text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.cp-side-tabs .wod-tab-btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: 9px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.cp-side-tabs .wod-tab-btn:hover {
+  color: #fff;
+  background: rgba(200, 160, 80, 0.08);
+}
+
+.cp-side-tabs .wod-tab-btn.active {
+  color: #fce8a6;
+}
+
+.cp-side-tabs .wod-tab-btn.active::before {
+  background: var(--wod-gold);
+  box-shadow: 0 0 6px rgba(200, 160, 80, 0.6);
+}
+
+/* Rolagem rápida: separada por um filete, sem caixa */
+.cp-side-tabs .wod-tab-btn.wod-tab-roll {
+  margin-top: 6px;
+  color: var(--wod-gold);
+}
+
+.cp-side-tabs .wod-tab-btn.wod-tab-roll::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 8px;
+  right: 8px;
+  height: 1px;
+  background: rgba(200, 160, 80, 0.3);
+}
+
+.cp-side-tabs .wod-tab-btn.wod-tab-roll:hover {
+  color: #fff;
+  background: rgba(200, 160, 80, 0.18);
+}
+
+/* Header */
+.wod-header {
+  border-bottom: 2px solid var(--wod-crimson);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* Moldura Visual de Arte do Personagem */
+.wod-portrait-container {
+  flex: 0 0 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wod-portrait-frame {
+  position: relative;
+  width: 110px;
+  height: 135px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid var(--wod-border);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.75), inset 0 0 15px rgba(0, 0, 0, 0.6);
+  background: #0d0f12;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.wod-portrait-frame:hover {
+  border-color: var(--wod-gold);
+  box-shadow: 0 0 14px rgba(200, 160, 90, 0.45);
+}
+
+.wod-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.wod-portrait-img.is-default {
+  object-fit: contain;
+  padding: 12px;
+  opacity: 0.6;
+  filter: grayscale(80%) sepia(20%);
+}
+
+.wod-portrait-frame:hover .wod-portrait-img {
+  transform: scale(1.05);
+}
+
+.wod-portrait-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  backdrop-filter: blur(2px);
+  color: var(--wod-gold);
+}
+
+.wod-portrait-frame:hover .wod-portrait-overlay {
+  opacity: 1;
+}
+
+.wod-portrait-icon {
+  font-size: 22px;
+}
+
+.wod-portrait-text {
+  font-family: var(--wod-font);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 4px;
+}
+
+.wod-header-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.wod-header-logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.wod-header-logo h1 {
+  font-family: var(--wod-font);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--wod-gold);
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.wod-header-logo h2 {
+  font-family: var(--wod-font);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--wod-text-muted);
+  margin: 2px 0 0 0;
+}
+
+.wod-header-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wod-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.wod-field {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: transparent;
+  padding: 2px 0;
+  border: none;
+  border-radius: 0;
+}
+
+.wod-field label {
+  font-size: 11px;
+  font-family: var(--wod-font);
+  color: var(--wod-gold);
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.wod-field input {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(200, 160, 80, 0.4) !important;
+  border-radius: 0 !important;
+  color: #f5eedf !important;
+  font-family: var(--wod-font) !important;
+  font-size: 13px !important;
+  padding: 1px 4px !important;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.wod-field input:focus {
+  border-bottom-color: var(--wod-gold) !important;
+  box-shadow: 0 1px 0 var(--wod-gold) !important;
+  background: rgba(200, 160, 80, 0.04) !important;
+}
+
+.wod-select {
+  background: var(--wod-bg-input);
+  border: 1px solid var(--wod-border);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  outline: none;
+}
+
+/* Abas */
+.wod-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--wod-border);
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.wod-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--wod-text-muted);
+  font-family: var(--wod-font);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.wod-tab-btn:hover {
+  color: #fff;
+}
+
+.wod-tab-btn.active {
+  color: var(--wod-gold);
+  border-bottom-color: var(--wod-gold);
+  font-weight: 700;
+}
+
+.wod-tab-highlight {
+  color: #ff9f43;
+}
+
+.wod-quick-roll-btn {
+  margin-left: auto;
+  background: var(--wod-crimson);
+  color: #fff;
+  border: 1px solid #c93b3b;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-family: var(--wod-font-sans);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.wod-quick-roll-btn:hover {
+  background: var(--wod-crimson-bright);
+}
+
+/* Corpo das Abas */
+.wod-sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.wod-tab-pane {
+  display: none;
+}
+
+.wod-tab-pane.active {
+  display: block;
+}
+
+/* Colunas e Seções */
+.wod-section {
+  margin-bottom: 16px;
+}
+
+.wod-section-title {
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.wod-section-title h3 {
+  font-family: var(--wod-font);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--wod-gold);
+  margin: 0;
+}
+
+.wod-subtitle {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+  font-style: italic;
+}
+
+.wod-columns-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.wod-columns-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.wod-column-header {
+  font-family: var(--wod-font);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #fff;
+  border-bottom: 1px solid var(--wod-crimson);
+  padding-bottom: 4px;
+  margin: 0 0 8px 0;
+}
+
+/* Linhas de Traços (Atributos e Habilidades) — Clássico Storyteller de Mesa */
+.wod-trait-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 2px;
+  border-radius: 2px;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.wod-trait-row:hover {
+  background: rgba(200, 160, 80, 0.05);
+}
+
+.wod-roll-attr, .wod-roll-ability {
+  background: transparent;
+  border: none;
+  color: #dfd9cb;
+  font-family: var(--wod-font);
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+  padding: 1px 2px;
+  border-radius: 2px;
+  transition: all 0.15s;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wod-roll-attr:hover, .wod-roll-ability:hover {
+  color: var(--wod-gold);
+  text-shadow: 0 0 6px rgba(200, 160, 80, 0.5);
+}
+
+.wod-roll-attr.selected {
+  background: var(--wod-crimson);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(231, 42, 42, 0.7);
+}
+
+.wod-spec-input-row {
+  padding-left: 8px;
+  margin-bottom: 4px;
+}
+
+.wod-spec-input-row input {
+  width: 90%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(200, 160, 80, 0.3);
+  color: var(--wod-gold);
+  font-size: 11px;
+  font-family: var(--wod-font);
+  font-style: italic;
+  padding: 1px 4px;
+  outline: none;
+}
+
+/* Bolinhas (Dots) — Tokens Físicos Táteis do Storyteller */
+.wod-dots-track {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  user-select: none;
+  margin-left: 8px;
+}
+
+.wod-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(200, 160, 80, 0.5);
+  background: rgba(10, 8, 12, 0.6);
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.15s, box-shadow 0.15s;
+}
+
+.wod-dot:hover {
+  border-color: #fff;
+  transform: scale(1.25);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+.wod-dot.filled {
+  background: radial-gradient(circle at 35% 35%, #ffe099 0%, #c9a050 55%, #7a5413 100%);
+  border-color: #ffe099;
+  box-shadow: 0 0 5px rgba(200, 160, 80, 0.6);
+}
+
+/* Caixas Quadradas (Boxes para FV, Fúria, Gnose e Sangue) */
+.wod-boxes-track {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  user-select: none;
+}
+
+.wod-box {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #777;
+  background: rgba(0, 0, 0, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+  color: var(--wod-crimson-bright);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.wod-box:hover {
+  border-color: #fff;
+}
+
+.wod-box.checked {
+  background: rgba(158, 26, 26, 0.28);
+  border-color: var(--wod-crimson-bright);
+  box-shadow: 0 0 3px rgba(231, 42, 42, 0.6);
+}
+
+.wod-box.checked::after {
+  content: "✕";
+}
+
+.wod-box-paradox.checked {
+  background: #ff4757;
+  border-color: #ff6b81;
+  box-shadow: 0 0 4px rgba(255, 71, 87, 0.7);
+}
+
+.wod-boxes-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.wod-pool-block {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.wod-pool-block label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--wod-text-muted);
+  margin-bottom: 4px;
+}
+
+.wod-pool-inputs {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--wod-text-muted);
+}
+
+.wod-mini-num {
+  width: 38px;
+  background: var(--wod-bg-input);
+  border: 1px solid var(--wod-border);
+  color: #fff;
+  border-radius: 3px;
+  padding: 2px 4px;
+  text-align: center;
+}
+
+.wod-mini-label {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+  margin-bottom: 3px;
+}
+
+/* Renome Garou */
+.wod-renown-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+/* Trilha de Vitalidade */
+.wod-health-track {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.wod-info-text {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+  margin: 0 0 8px 0;
+}
+
+.wod-health-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.wod-health-label {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wod-health-penalty {
+  color: var(--wod-crimson-bright);
+  font-weight: bold;
+}
+
+.wod-health-box {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--wod-border);
+  background: var(--wod-bg-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 3px;
+  user-select: none;
+  transition: all 0.15s;
+}
+
+.wod-health-box:hover {
+  border-color: #fff;
+}
+
+.wod-health-box.bashing {
+  color: #e0bc3c;
+  border-color: #e0bc3c;
+}
+
+.wod-health-box.lethal {
+  color: var(--wod-crimson-bright);
+  border-color: var(--wod-crimson-bright);
+}
+
+.wod-health-box.aggravated {
+  color: #ff3b30;
+  border-color: #ff3b30;
+  background: rgba(255, 59, 48, 0.2);
+  box-shadow: 0 0 6px rgba(255, 59, 48, 0.5);
+}
+
+/* Estatísticas Derivadas */
+.wod-combat-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 8px;
+}
+
+.wod-stat-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--wod-border);
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.wod-stat-clickable {
+  cursor: pointer;
+}
+
+.wod-stat-clickable:hover {
+  border-color: var(--wod-gold);
+  background: rgba(226, 183, 64, 0.1);
+  transform: translateY(-1px);
+}
+
+.wod-stat-num {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--wod-gold);
+  font-family: var(--wod-font);
+}
+
+.wod-stat-label {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+  text-transform: uppercase;
+}
+
+/* Botões de Ação Rápida */
+.wod-btn-action {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--wod-border);
+  color: #ddd;
+  border-radius: 3px;
+  font-size: 11px;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.wod-btn-action:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: var(--wod-gold);
+}
+
+/* Itens */
+.wod-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wod-add-item-btn {
+  background: transparent;
+  border: 1px solid var(--wod-border);
+  color: var(--wod-gold);
+  border-radius: 3px;
+  font-size: 11px;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.wod-add-item-btn:hover {
+  background: rgba(226, 183, 64, 0.15);
+  border-color: var(--wod-gold);
+}
+
+.wod-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.wod-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.wod-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.wod-item-subtext {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+}
+
+.wod-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wod-action-icon-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.wod-action-icon-btn:hover {
+  background: var(--wod-crimson);
+  border-color: var(--wod-crimson-bright);
+  transform: scale(1.08);
+}
+
+.wod-item-actions button {
+  background: transparent;
+  border: none;
+  color: var(--wod-text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0 4px;
+}
+
+.wod-item-actions button:hover {
+  color: #fff;
+}
+
+.wod-empty-msg {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  padding: 4px 0;
+}
+
+/* Biografia e Textareas */
+.wod-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--wod-border);
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  resize: vertical;
+  outline: none;
+}
+
+.wod-textarea:focus {
+  border-color: var(--wod-gold);
+}
+
+.wod-xp-row {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--wod-text-muted);
+  margin-bottom: 6px;
+}
+
+/* PAINEL DAS 5 FORMAS (W20) */
+.wod-forms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.wod-form-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--wod-border);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.wod-form-card.active {
+  border-color: #ff9f43;
+  box-shadow: 0 0 8px rgba(255, 159, 67, 0.3);
+  background: rgba(255, 159, 67, 0.08);
+}
+
+.wod-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wod-form-name {
+  font-family: var(--wod-font);
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.wod-form-active-badge {
+  background: #ff9f43;
+  color: #111;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.wod-form-shift-btn {
+  background: var(--wod-crimson);
+  border: none;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.wod-form-shift-btn:hover {
+  background: var(--wod-crimson-bright);
+}
+
+.wod-form-btn-group {
+  display: flex;
+  gap: 4px;
+}
+
+.wod-form-rage-shift-btn {
+  background: #ff9f43;
+  color: #111;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.wod-form-rage-shift-btn:hover {
+  background: #ffa801;
+  transform: scale(1.05);
+}
+
+.wod-btn-success {
+  background: #10ac84;
+  color: #fff;
+  border: none;
+}
+
+.wod-btn-success:hover {
+  background: #1dd1a1;
+}
+
+.wod-btn-danger {
+  background: #ee5253;
+  color: #fff;
+  border: none;
+}
+
+.wod-btn-danger:hover {
+  background: #ff6b6b;
+}
+
+.wod-form-mod-text {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+  font-style: italic;
+}
+
+.wod-form-traits {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+/* PAINEL DE MÁGIKA & ESFERAS (M20) */
+.wod-sphere-label {
+  font-size: 12px;
+  color: var(--wod-text);
+  font-family: var(--wod-font);
+}
+
+.wod-casting-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--wod-border);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+/* FICHA DE ITENS */
+.wod-item-sheet {
+  max-width: 600px;
+}
+
+.wod-item-type-badge {
+  background: var(--wod-crimson);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* BADGES */
+.wod-badge {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  font-size: 11px;
+  padding: 1px 5px;
+  color: #bbb;
+}
+
+.wod-badge-danger {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.wod-badge-crit {
+  color: #feca57;
+  border-color: #feca57;
+}
+
+.wod-badge-success {
+  color: #1dd1a1;
+  border-color: #1dd1a1;
+}
+
+/* MODAL DE DIÁLOGO DE ROLAGEM */
+.wod20th-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.wod20th-dialog-box {
+  background: #18181c;
+  border: 1px solid var(--wod-border-gold);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.9);
+  border-radius: 6px;
+  width: 320px;
+  color: #fff;
+  overflow: hidden;
+  font-family: var(--wod-font-sans);
+}
+
+.wod20th-dialog-header {
+  background: #101014;
+  border-bottom: 1px solid var(--wod-crimson);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wod20th-dialog-header h3 {
+  font-family: var(--wod-font);
+  font-size: 14px;
+  color: var(--wod-gold);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.wod20th-dialog-close {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.wod20th-dialog-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wod20th-dialog-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.wod20th-dialog-row input[type="number"] {
+  width: 60px;
+  background: var(--wod-bg-input);
+  border: 1px solid var(--wod-border);
+  color: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.wod20th-dialog-checkbox label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wod20th-dialog-actions {
+  padding: 10px 14px;
+  background: #101014;
+  border-top: 1px solid var(--wod-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.wod20th-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.wod20th-btn-cancel {
+  background: #333;
+  color: #ccc;
+}
+
+.wod20th-btn-roll {
+  background: var(--wod-crimson);
+  color: #fff;
+  font-weight: bold;
+}
+
+.wod20th-btn-roll:hover {
+  background: var(--wod-crimson-bright);
+}
+
+/* CARD DE CHAT STORYTELLER */
+.wod20th-roll-card {
+  background: #16161a;
+  border: 1px solid var(--wod-border);
+  border-left: 3px solid var(--wod-crimson);
+  border-radius: 4px;
+  padding: 10px;
+  color: #e0e0e0;
+  font-family: var(--wod-font-sans);
+}
+
+.wod-card-header {
+  margin-bottom: 6px;
+}
+
+.wod-card-actor {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.wod-card-label {
+  font-family: var(--wod-font);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--wod-gold);
+}
+
+.wod-card-badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.wod-card-dice-container {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.wod-die {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.wod-die-normal {
+  background: #232328;
+  color: #888;
+  border: 1px solid #3a3a44;
+}
+
+.wod-die-success {
+  background: #223824;
+  color: #55efc4;
+  border: 1px solid #55efc4;
+}
+
+.wod-die-crit {
+  background: #3e3214;
+  color: #ffeaa7;
+  border: 1px solid #ffeaa7;
+  box-shadow: 0 0 4px rgba(255, 234, 167, 0.5);
+}
+
+.wod-die-botch {
+  background: #3d1414;
+  color: #ff7675;
+  border: 1px solid #ff7675;
+  box-shadow: 0 0 4px rgba(255, 118, 117, 0.4);
+}
+
+.wod-card-details {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  border-top: 1px dotted rgba(255, 255, 255, 0.1);
+  padding-top: 4px;
+}
+
+.wod-verdict {
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.wod-verdict-success {
+  background: rgba(46, 204, 113, 0.15);
+  border: 1px solid #2ecc71;
+  color: #2ecc71;
+}
+
+.wod-verdict-number {
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.wod-verdict-fail {
+  background: rgba(149, 165, 166, 0.15);
+  border: 1px solid #7f8c8d;
+  color: #bdc3c7;
+}
+
+.wod-verdict-botch {
+  background: rgba(231, 76, 60, 0.2);
+  border: 1px solid #e74c3c;
+  color: #e74c3c;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+/* ── BARRA DE MONTAGEM DE POOL (POOL BUILDER) ─────────────────── */
+.wod-pool-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(90deg, rgba(121, 17, 24, 0.45) 0%, rgba(201, 160, 80, 0.25) 100%);
+  border: 1px solid var(--wod-gold);
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin: 10px 0 14px 0;
+  box-shadow: 0 0 15px rgba(201, 160, 80, 0.35);
+  animation: wodPulse 2s infinite ease-in-out;
+  color: #f5eedf;
+  font-family: var(--wod-font);
+}
+
+@keyframes wodPulse {
+  0%, 100% { border-color: var(--wod-gold); box-shadow: 0 0 10px rgba(201, 160, 80, 0.25); }
+  50% { border-color: #ffd875; box-shadow: 0 0 18px rgba(201, 160, 80, 0.55); }
+}
+
+.wod-pool-indicator-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wod-pool-indicator-badge {
+  background: var(--wod-red-dark);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  border: 1px solid var(--wod-gold);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.wod-pool-indicator-text {
+  font-size: 13px;
+  color: #f5eedf;
+}
+
+.wod-pool-indicator-text strong {
+  color: var(--wod-gold);
+  font-size: 15px;
+}
+
+.wod-pool-indicator-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wod-roll-single-attr-btn {
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid var(--wod-gold);
+  color: var(--wod-gold);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  font-family: var(--wod-font);
+}
+
+.wod-roll-single-attr-btn:hover {
+  background: var(--wod-gold);
+  color: #111;
+  box-shadow: 0 0 8px rgba(201, 160, 80, 0.6);
+}
+
+.wod-clear-attr-btn {
+  background: transparent;
+  border: none;
+  color: #ff7675;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.wod-clear-attr-btn:hover {
+  background: rgba(231, 76, 60, 0.2);
+  color: #fff;
+}
+
+/* ── LINHAS INLINE DE DISCIPLINAS E ANTECEDENTES ───────────────── */
+.wod-inline-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 2px;
+  border-bottom: 1px dotted rgba(201, 160, 80, 0.18);
+  transition: background 0.15s ease;
+}
+
+.wod-inline-row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.wod-inline-name-input {
+  flex: 1;
+  min-width: 90px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f5eedf;
+  font-family: var(--wod-font);
+  font-size: 13px;
+  padding: 2px 4px;
+  transition: border-color 0.2s;
+}
+
+.wod-inline-name-input:focus {
+  outline: none;
+  border-bottom-color: var(--wod-gold);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.wod-roll-inline-btn {
+  background: transparent;
+  border: 1px solid rgba(201, 160, 80, 0.3);
+  color: var(--wod-gold);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.wod-roll-inline-btn:hover {
+  background: rgba(201, 160, 80, 0.25);
+  border-color: var(--wod-gold);
+  transform: scale(1.15);
+}
+
+.wod-remove-inline-btn {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.wod-remove-inline-btn:hover {
+  color: #ff7675;
+}
+
+.wod-add-inline-btn {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(201, 160, 80, 0.5);
+  color: var(--wod-gold);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--wod-font);
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.wod-btn-add-item {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(201, 160, 80, 0.5);
+  color: var(--wod-gold);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--wod-font);
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.wod-btn-add-item:hover {
+  background: var(--wod-gold);
+  color: #0d0f12;
+  box-shadow: 0 0 8px rgba(201, 160, 80, 0.4);
+}
+
+.wod-roll-item-power {
+  background: none;
+  border: none;
+  color: var(--wod-gold);
+  cursor: pointer;
+  padding: 0 4px;
+  font-size: 13px;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.wod-roll-item-power:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+.wod-item-title-clickable {
+  flex: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  color: var(--wod-text-main);
+  transition: color 0.15s ease;
+}
+
+.wod-item-title-clickable:hover {
+  color: var(--wod-gold);
+  text-decoration: underline;
+}
+
+.wod-item-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--wod-gold);
+  background: transparent;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.15s ease;
+}
+
+.wod-item-dot.filled {
+  background: var(--wod-gold);
+  box-shadow: 0 0 3px rgba(201, 160, 80, 0.6);
+}
+
+.wod-item-edit-btn,
+.wod-item-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0 3px;
+  opacity: 0.6;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.wod-item-edit-btn {
+  color: var(--wod-gold);
+}
+
+.wod-item-edit-btn:hover {
+  opacity: 1;
+  color: #fff;
+}
+
+.wod-item-delete-btn {
+  color: #ef4444;
+}
+
+.wod-item-delete-btn:hover {
+  opacity: 1;
+  color: #ff6b6b;
+}
+
+.wod-empty-msg {
+  font-size: 11px;
+  color: var(--wod-text-muted);
+  font-style: italic;
+  padding: 4px 6px;
+}
+
+.wod-quick-action-btn {
+  background: rgba(30, 20, 25, 0.6);
+  border: 1px solid rgba(139, 0, 0, 0.4);
+  color: #f5eedf;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--wod-font);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.wod-quick-action-btn:hover {
+  background: rgba(139, 0, 0, 0.4);
+  border-color: #c9a050;
+  color: #fff;
+  box-shadow: 0 0 6px rgba(200, 160, 80, 0.3);
+}
+
+.wod-column-header-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--wod-font);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--wod-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.wod-column-header-btn:hover {
+  color: #fff;
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   World of Darkness 20th Edition - Custom D10 Chat Card & Badges
+   ========================================================================== */
+.wod20-chat-card {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 2px 0 !important;
+  color: #e6e6e6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 !important;
+}
+
+.wod20-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(158, 26, 26, 0.4);
+  padding-bottom: 6px;
+}
+
+.wod20-card-title {
+  font-family: var(--wod-font, "Cinzel", "Times New Roman", serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--wod-gold, #e2b740);
+  letter-spacing: 0.5px;
+}
+
+.wod20-card-actor {
+  font-size: 11px;
+  color: var(--wod-text-muted, #9e9ea8);
+  font-style: italic;
+}
+
+.wod20-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.wod20-badge {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.wod20-badge.diff {
+  background: rgba(197, 155, 39, 0.15);
+  color: var(--wod-gold, #e2b740);
+  border: 1px solid rgba(197, 155, 39, 0.35);
+}
+
+.wod20-badge.pool {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.wod20-badge.spec {
+  background: rgba(226, 183, 64, 0.2);
+  color: #ffd700;
+  border: 1px solid rgba(226, 183, 64, 0.5);
+}
+
+.wod20-badge.wp {
+  background: rgba(158, 26, 26, 0.25);
+  color: #ff6b6b;
+  border: 1px solid rgba(158, 26, 26, 0.6);
+}
+
+/* Área de D10s em SVG */
+.wod20-dice-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.wod-d10-wrap {
+  width: 38px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.wod-d10-wrap:hover {
+  transform: scale(1.15);
+}
+
+.wod-d10-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.wod-d10-body {
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.wod-d10-line {
+  fill: none;
+  stroke-width: 1.2;
+}
+
+.wod-d10-val {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+}
+
+/* Cores por Estado do D10 */
+/* Sucesso (>= Dif) */
+.wod-d10-wrap.success .wod-d10-body {
+  fill: #152615;
+  stroke: #4ade80;
+}
+.wod-d10-wrap.success .wod-d10-line {
+  stroke: rgba(74, 222, 128, 0.4);
+}
+.wod-d10-wrap.success .wod-d10-val {
+  fill: #ffffff;
+}
+
+/* 10 Crítico / Especialização */
+.wod-d10-wrap.crit .wod-d10-body {
+  fill: #3b2a05;
+  stroke: #fbbf24;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.7));
+}
+.wod-d10-wrap.crit .wod-d10-line {
+  stroke: rgba(251, 191, 36, 0.6);
+}
+.wod-d10-wrap.crit .wod-d10-val {
+  fill: #fffbeb;
+}
+
+/* 1 Cancelador */
+.wod-d10-wrap.one .wod-d10-body {
+  fill: #330b0b;
+  stroke: #ef4444;
+  filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6));
+}
+.wod-d10-wrap.one .wod-d10-line {
+  stroke: rgba(239, 68, 68, 0.4);
+}
+.wod-d10-wrap.one .wod-d10-val {
+  fill: #fee2e2;
+}
+
+/* Falha Neutra (< Dif) */
+.wod-d10-wrap.neutral .wod-d10-body {
+  fill: #1a1a20;
+  stroke: #4b4b58;
+}
+.wod-d10-wrap.neutral .wod-d10-line {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+.wod-d10-wrap.neutral .wod-d10-val {
+  fill: #787886;
+}
+
+/* Banner de Resultado */
+.wod20-result-banner {
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.wod20-result-banner.success {
+  background: rgba(34, 197, 94, 0.14);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #86efac;
+}
+
+.wod20-result-banner.fail {
+  background: rgba(100, 100, 115, 0.14);
+  border: 1px solid rgba(100, 100, 115, 0.35);
+  color: #cbd5e1;
+}
+
+.wod20-result-banner.botch {
+  background: rgba(220, 38, 38, 0.22);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.wod20-result-main {
+  font-family: var(--wod-font, "Cinzel", "Times New Roman", serif);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.wod20-result-sub {
+  font-size: 11px;
+  margin-top: 3px;
+  opacity: 0.88;
+}
+
+
+/* ==========================================================================
+   Creature-Specific Atmospheric Themes (Gothic-Punk Tabletop Aesthetic)
+   ========================================================================== */
+
+/* 1. VAMPIRO (V20): Gothic-Punk, mármore ardósia, sangue carmesim profundo e ouro envelhecido */
+.wod-theme-vampire {
+  background: radial-gradient(circle at 50% 0%, #1e1014 0%, #120e10 70%, #0a0809 100%);
+  border: 1px solid #791118;
+}
+.wod-theme-vampire .wod-header {
+  border-bottom: 2px solid #791118;
+  background: linear-gradient(90deg, rgba(74, 14, 23, 0.4) 0%, rgba(14, 13, 18, 0.6) 100%);
+}
+.wod-theme-vampire .wod-column-header {
+  color: #c9a050;
+  border-bottom: 2px solid #791118;
+}
+.wod-theme-vampire .cp-side-tabs {
+  border-color: rgba(121, 17, 24, 0.5);
+}
+
+/* 2. LOBISOMEM (W20): Feral, floresta profunda, verde musgo, osso e terracota */
+.wod-theme-werewolf {
+  background: radial-gradient(circle at 50% 0%, #152219 0%, #0e1611 70%, #080d0a 100%);
+  border: 1px solid #2e583c;
+}
+.wod-theme-werewolf .wod-header {
+  border-bottom: 2px solid #2e583c;
+  background: linear-gradient(90deg, rgba(31, 61, 43, 0.45) 0%, rgba(14, 22, 17, 0.6) 100%);
+}
+.wod-theme-werewolf .wod-column-header {
+  color: #a3c293;
+  border-bottom: 2px solid #2e583c;
+}
+.wod-theme-werewolf .wod-header-logo h1 {
+  color: #a3c293;
+}
+.wod-theme-werewolf .cp-side-tabs {
+  border-color: rgba(46, 88, 60, 0.5);
+}
+.wod-theme-werewolf .wod-dot.filled,
+.wod-theme-werewolf .wod-item-dot.filled {
+  background: #a3c293;
+  border-color: #a3c293;
+  box-shadow: 0 0 3px rgba(163, 194, 147, 0.5);
+}
+
+/* 3. MAGO (M20): Índigo cósmico, ametista hermética e ouro solar */
+.wod-theme-mage {
+  background: radial-gradient(circle at 50% 0%, #181a32 0%, #101222 70%, #090a14 100%);
+  border: 1px solid #3f2d6e;
+}
+.wod-theme-mage .wod-header {
+  border-bottom: 2px solid #3f2d6e;
+  background: linear-gradient(90deg, rgba(63, 45, 110, 0.45) 0%, rgba(16, 18, 34, 0.6) 100%);
+}
+.wod-theme-mage .wod-column-header {
+  color: #d69e2e;
+  border-bottom: 2px solid #3f2d6e;
+}
+.wod-theme-mage .wod-header-logo h1 {
+  color: #d69e2e;
+}
+.wod-theme-mage .cp-side-tabs {
+  border-color: rgba(63, 45, 110, 0.5);
+}
+.wod-theme-mage .wod-dot.filled,
+.wod-theme-mage .wod-item-dot.filled {
+  background: #d69e2e;
+  border-color: #d69e2e;
+  box-shadow: 0 0 3px rgba(214, 158, 46, 0.5);
+}
+
+/* 4. CAÇADOR (H20 / The Reckoning): Dossiê forense, carvão tático, alerta âmbar/laranja de advertência */
+.wod-theme-hunter {
+  background: radial-gradient(circle at 50% 0%, #202428 0%, #15181c 70%, #0d0f12 100%);
+  border: 1px solid #c26d24;
+}
+.wod-theme-hunter .wod-header {
+  border-bottom: 2px solid #c26d24;
+  background: linear-gradient(90deg, rgba(194, 109, 36, 0.3) 0%, rgba(21, 24, 28, 0.8) 100%);
+}
+.wod-theme-hunter .wod-column-header {
+  color: #e28738;
+  border-bottom: 2px solid #c26d24;
+  letter-spacing: 1.5px;
+}
+.wod-theme-hunter .wod-header-logo h1 {
+  color: #e28738;
+  letter-spacing: 2px;
+}
+.wod-theme-hunter .cp-side-tabs {
+  border-color: rgba(194, 109, 36, 0.5);
+}
+.wod-theme-hunter .wod-dot.filled,
+.wod-theme-hunter .wod-item-dot.filled {
+  background: #e28738;
+  border-color: #e28738;
+  box-shadow: 0 0 4px rgba(226, 135, 56, 0.6);
+}
+.wod-theme-hunter .wod-btn-action,
+.wod-theme-hunter .wod-btn-add-item {
+  border-color: var(--wod-accent-2, #c26d24);
+  color: var(--wod-accent, #e28738);
+}
+.wod-theme-hunter .wod-btn-add-item:hover {
+  background: var(--wod-accent-2, #c26d24);
+  color: #fff;
+}
+
+/* 5. CHANGELING (C20): Esmeralda onírica, ametista e dourado feérico */
+.wod-theme-changeling {
+  background: radial-gradient(circle at 50% 0%, #162620 0%, #0f1c16 70%, #0a120e 100%);
+  border: 1px solid #5a2366;
+}
+.wod-theme-changeling .wod-header {
+  border-bottom: 2px solid #5a2366;
+  background: linear-gradient(90deg, rgba(90, 35, 102, 0.4) 0%, rgba(15, 28, 22, 0.6) 100%);
+}
+.wod-theme-changeling .wod-column-header {
+  color: #e0b44c;
+  border-bottom: 2px solid #5a2366;
+}
+.wod-theme-changeling .cp-side-tabs {
+  border-color: rgba(90, 35, 102, 0.5);
+}
+.wod-theme-changeling .wod-dot.filled,
+.wod-theme-changeling .wod-item-dot.filled {
+  background: #e0b44c;
+  border-color: #e0b44c;
+  box-shadow: 0 0 3px rgba(224, 180, 76, 0.5);
+}
+
+/* 6. WRAITH (O20): Cinza espectral, lápide necrótica, verdigris e ferro forjado */
+.wod-theme-wraith {
+  background: radial-gradient(circle at 50% 0%, #161a1b 0%, #0f1213 70%, #080a0a 100%);
+  border: 1px solid #1f3835;
+}
+.wod-theme-wraith .wod-header {
+  border-bottom: 2px solid #1f3835;
+  background: linear-gradient(90deg, rgba(31, 56, 53, 0.45) 0%, rgba(15, 18, 19, 0.8) 100%);
+}
+.wod-theme-wraith .wod-column-header {
+  color: #8da0b8;
+  border-bottom: 2px solid #1f3835;
+}
+.wod-theme-wraith .wod-header-logo h1 {
+  color: #8da0b8;
+}
+.wod-theme-wraith .cp-side-tabs {
+  border-color: rgba(31, 56, 53, 0.5);
+}
+.wod-theme-wraith .wod-dot.filled,
+.wod-theme-wraith .wod-item-dot.filled {
+  background: #8da0b8;
+  border-color: #8da0b8;
+  box-shadow: 0 0 3px rgba(141, 160, 184, 0.5);
+}
+
+/* 7. MORTAL: Arquivo sóbrio, papel cartão e grafite */
+.wod-theme-mortal {
+  background: radial-gradient(circle at 50% 0%, #1b1c20 0%, #131416 70%, #0c0c0e 100%);
+  border: 1px solid #4a5568;
+}
+.wod-theme-mortal .wod-header {
+  border-bottom: 2px solid #4a5568;
+  background: linear-gradient(90deg, rgba(74, 85, 104, 0.3) 0%, rgba(19, 20, 22, 0.8) 100%);
+}
+.wod-theme-mortal .wod-column-header {
+  color: #cbd5e0;
+  border-bottom: 2px solid #4a5568;
+}
+.wod-theme-mortal .cp-side-tabs {
+  border-color: rgba(74, 85, 104, 0.5);
+}
+.wod-theme-mortal .wod-dot.filled,
+.wod-theme-mortal .wod-item-dot.filled {
+  background: #cbd5e0;
+  border-color: #cbd5e0;
+}
+
+/* ==========================================================================
+   World of Darkness 20th - Ficha de Item & Poderes por Nível
+   ========================================================================== */
+.wod-item-sheet {
+  min-width: 660px;
+  display: flex;
+  flex-direction: column;
+}
+
+.wod-powers-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(200, 160, 80, 0.25);
+  border-radius: 6px;
+}
+
+.wod-canonical-loader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.wod-select-canonical {
+  flex: 1;
+  max-width: 260px;
+  background: #141418;
+  color: #f5eedf;
+  border: 1px solid rgba(200, 160, 80, 0.4);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.wod-btn-action {
+  padding: 5px 12px;
+  font-family: var(--wod-font, serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.wod-btn-gold {
+  background: rgba(200, 160, 80, 0.18);
+  color: var(--wod-gold, #c9a050);
+  border-color: rgba(200, 160, 80, 0.5);
+}
+
+.wod-btn-gold:hover {
+  background: var(--wod-gold, #c9a050);
+  color: #111;
+  box-shadow: 0 0 8px rgba(200, 160, 80, 0.4);
+}
+
+.wod-btn-crimson {
+  background: rgba(121, 17, 24, 0.5);
+  color: #fce8a6;
+  border-color: #8b0000;
+}
+
+.wod-btn-crimson:hover {
+  background: #791118;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(121, 17, 24, 0.6);
+}
+
+.wod-powers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wod-power-card {
+  background: rgba(18, 16, 20, 0.7);
+  border: 1px solid rgba(200, 160, 80, 0.25);
+  border-left: 3px solid var(--wod-crimson, #791118);
+  border-radius: 4px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s ease;
+}
+
+.wod-power-card:hover {
+  border-color: rgba(200, 160, 80, 0.5);
+  border-left-color: var(--wod-gold, #c9a050);
+}
+
+.wod-power-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(200, 160, 80, 0.15);
+  padding-bottom: 6px;
+}
+
+.wod-power-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.wod-power-level-tag {
+  background: rgba(121, 17, 24, 0.6);
+  color: #fce8a6;
+  border: 1px solid rgba(200, 160, 80, 0.4);
+  font-family: var(--wod-font, serif);
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.wod-power-name-input {
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(200, 160, 80, 0.3) !important;
+  border-radius: 0 !important;
+  color: var(--wod-gold, #c9a050) !important;
+  font-family: var(--wod-font, serif) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  padding: 2px 4px !important;
+}
+
+.wod-power-name-input:focus {
+  border-bottom-color: var(--wod-gold) !important;
+  outline: none !important;
+}
+
+.wod-power-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wod-btn-roll-mini {
+  background: rgba(121, 17, 24, 0.8);
+  color: #fff;
+  border: 1px solid rgba(200, 160, 80, 0.4);
+  border-radius: 3px;
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.wod-btn-roll-mini:hover {
+  background: var(--wod-crimson);
+  color: #ffefc4;
+  transform: scale(1.05);
+}
+
+.wod-btn-del-mini {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #999;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.wod-btn-del-mini:hover {
+  background: rgba(220, 38, 38, 0.25);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.wod-power-fields-grid {
+  display: grid;
+  grid-template-columns: 80px 1.5fr 1.5fr 70px 1fr 1fr;
+  gap: 8px;
+}
+
+.wod-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.wod-form-group label {
+  font-family: var(--wod-font-sans, sans-serif);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #a89a80;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.wod-form-group select,
+.wod-form-group input {
+  width: 100%;
+  background: #111014;
+  border: 1px solid rgba(200, 160, 80, 0.25);
+  color: #e6e6e6;
+  border-radius: 3px;
+  padding: 3px 6px;
+  font-size: 11.5px;
+}
+
+.wod-form-group select:focus,
+.wod-form-group input:focus {
+  border-color: var(--wod-gold);
+  outline: none;
+}
+
+.wod-textarea-sm {
+  width: 100%;
+  background: #111014;
+  border: 1px solid rgba(200, 160, 80, 0.2);
+  color: #d8d0c0;
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-family: var(--wod-font-sans, sans-serif);
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.wod-powers-empty {
+  text-align: center;
+  padding: 24px 16px;
+  border: 1px dashed rgba(200, 160, 80, 0.3);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #c9a050;
+}
+
+.wod-powers-empty p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.wod-empty-hint {
+  font-size: 11px !important;
+  color: #a89a80;
+  max-width: 480px;
+  margin: 6px auto 0 auto !important;
+  line-height: 1.4;
+}
+
+.wod-item-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Linha de poder: atributo, habilidade, dificuldade, custo e duração lado a lado */
+.wod-power-row {
+  display: grid;
+  grid-template-columns: 1.3fr 1.3fr 52px 1.1fr 1.1fr;
+  gap: 8px;
+}
+
+.wod-power-desc {
+  margin-top: 4px;
+}
+
+.wod-power-desc summary {
+  cursor: pointer;
+  font-size: 11px;
+  color: #a89a80;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+.wod-power-desc[open] summary {
+  color: var(--wod-gold, #c9a050);
+  margin-bottom: 4px;
+}
+
+@media (max-width: 760px) {
+  .wod-power-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Árvore de disciplinas fixas (ficha do vampiro) */
+.wod-disc-tree {
+  border: 1px solid rgba(200, 160, 80, 0.2);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  margin-bottom: 6px;
+}
+
+.wod-disc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.wod-disc-head::-webkit-details-marker {
+  display: none;
+}
+
+.wod-disc-name {
+  font-family: var(--wod-font, serif);
+  font-size: 13px;
+  color: var(--wod-gold, #c9a050);
+}
+
+.wod-disc-levels {
+  list-style: none;
+  margin: 0;
+  padding: 0 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wod-disc-level {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  grid-template-areas:
+    "lvl name btn"
+    "lvl meta meta";
+  gap: 2px 8px;
+  align-items: center;
+  padding: 5px 6px;
+  border-left: 2px solid rgba(200, 160, 80, 0.2);
+  font-size: 11.5px;
+}
+
+.wod-disc-level.active {
+  border-left-color: var(--wod-gold, #c9a050);
+}
+
+.wod-disc-level.locked {
+  opacity: 0.45;
+}
+
+.wod-disc-lvl {
+  grid-area: lvl;
+  font-weight: 700;
+  color: var(--wod-gold, #c9a050);
+  text-align: center;
+}
+
+.wod-disc-pname {
+  grid-area: name;
+  font-weight: 600;
+  color: #f5eedf;
+}
+
+.wod-disc-meta {
+  grid-area: meta;
+  color: #a89a80;
+  font-size: 11px;
+}
+
+.wod-roll-tree-power {
+  grid-area: btn;
+  background: rgba(121, 17, 24, 0.8);
+  color: #fff;
+  border: 1px solid rgba(200, 160, 80, 0.4);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.wod-roll-tree-power:hover {
+  background: var(--wod-crimson, #791118);
+}
+
+/* Janela de escolha de disciplina */
+.wod-disc-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.wod-disc-pick-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--wod-gold, #c9a050);
+}
+
+.wod-disc-select {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+/* Bolinhas de nível: são <button>, então precisam zerar o padding e o tamanho mínimo herdados */
+.wod-dots-track .wod-dot {
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  min-height: 12px;
+  padding: 0;
+  margin: 0 2px;
+  flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   Botões da ficha: um único tamanho e hierarquia
+   Ação principal: contorno dourado sólido. Secundária: contorno discreto.
+   Altura mínima 26px; o texto não quebra em duas linhas.
+   ========================================================================== */
+.wod-btn-add-item,
+.wod-btn-add-discipline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 26px;
+  padding: 0 10px;
+  font-family: var(--wod-font, serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 4px;
+  border: 1px solid rgba(200, 160, 80, 0.5);
+  background: rgba(200, 160, 80, 0.08);
+  color: var(--wod-gold, #c9a050);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.wod-btn-add-item:hover,
+.wod-btn-add-discipline:hover {
+  background: rgba(200, 160, 80, 0.22);
+  border-color: var(--wod-gold, #c9a050);
+  color: #fff;
+}
+
+.wod-btn-add-item:focus-visible,
+.wod-btn-add-discipline:focus-visible {
+  outline: 2px solid var(--wod-gold, #c9a050);
+  outline-offset: 2px;
+}
+
+/* Cabeçalho de coluna: um tamanho só, sem quebrar em várias linhas */
+.wod-column-header {
+  white-space: nowrap;
+}
+
+/* Legibilidade mínima dos rótulos da árvore de disciplinas */
+.wod-disc-meta {
+  font-size: 11px;
+}
+
+.wod-disc-level {
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   Skin de ficha de VTT: painéis com moldura, cabeçalhos em faixa,
+   bolinhas e caixas com aparência de peça de jogo.
+   Só muda aparência; não altera estrutura nem comportamento.
+   ========================================================================== */
+
+/* Painel de coluna: moldura dourada interna e cantos ornamentados */
+.wod-columns-3 > .wod-column {
+  position: relative;
+  padding: 14px 14px 16px;
+  background:
+    linear-gradient(180deg, rgba(28, 24, 30, 0.92), rgba(12, 10, 14, 0.96));
+  border: 1px solid rgba(var(--wod-accent-rgb), 0.28);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+.wod-columns-3 > .wod-column::before,
+.wod-columns-3 > .wod-column::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--wod-accent, #c9a050);
+  border-style: solid;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.wod-columns-3 > .wod-column::before {
+  top: 4px;
+  left: 4px;
+  border-width: 1px 0 0 1px;
+}
+
+.wod-columns-3 > .wod-column::after {
+  bottom: 4px;
+  right: 4px;
+  border-width: 0 1px 1px 0;
+}
+
+/* Cabeçalho de seção como faixa: título + filete que some para a direita */
+.wod-column-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px 0;
+  padding: 0 0 6px 0;
+  border-bottom: none;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: var(--wod-accent, #c9a050);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.wod-column-header::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  background: var(--wod-accent-2, #e72a2a);
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px rgba(var(--wod-accent-rgb), 0.6);
+}
+
+.wod-column-header::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(var(--wod-accent-rgb), 0.6), rgba(var(--wod-accent-rgb), 0));
+}
+
+/* Linha de atributo/habilidade como placa de jogo */
+.wod-trait-row {
+  padding: 3px 6px;
+  margin: 0 -6px;
+  border-radius: 3px;
+  border-left: 2px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.wod-trait-row:hover {
+  background: linear-gradient(90deg, rgba(var(--wod-accent-rgb), 0.12), rgba(var(--wod-accent-rgb), 0.02));
+  border-left-color: var(--wod-accent, #c9a050);
+}
+
+/* Bolinhas: preenchida = gema acesa; vazia = encaixe escurecido */
+.wod-dot {
+  border-radius: 50%;
+  border: 1px solid rgba(var(--wod-accent-rgb), 0.35);
+  background: radial-gradient(circle at 50% 35%, #1a1518 0%, #0a080b 100%);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.wod-dot.filled {
+  background: radial-gradient(circle at 35% 30%, #fff3c4 0%, #e2b740 45%, #7a5413 100%);
+  border-color: #ffe099;
+  box-shadow: 0 0 6px rgba(226, 183, 64, 0.55), inset 0 -1px 1px rgba(0, 0, 0, 0.4);
+}
+
+/* Caixas (vitalidade, FV, sangue): encaixe gravado; marcada = ferimento em vermelho */
+.wod-box {
+  border-color: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(180deg, #050405, #151216);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Estatística em destaque (cartão de valor) */
+.wod-stat-card {
+  background: linear-gradient(180deg, rgba(30, 26, 32, 0.9), rgba(10, 9, 12, 0.95));
+  border: 1px solid rgba(var(--wod-accent-rgb), 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Botão de rolagem do poder: ícone de ação, não botão de texto */
+.wod-roll-tree-power {
+  min-width: 34px;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 12px;
+  background: radial-gradient(circle at 40% 30%, #9e1a1a, #4a0a0e);
+  border: 1px solid rgba(226, 183, 64, 0.5);
+  box-shadow: 0 0 6px rgba(158, 26, 26, 0.5);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.wod-roll-tree-power:hover {
+  background: radial-gradient(circle at 40% 30%, #e72a2a, #7a1016);
+  box-shadow: 0 0 10px rgba(231, 42, 42, 0.7);
+}
+
+/* Árvore de disciplina: cada disciplina é um painel recolhível */
+.wod-disc-tree {
+  background: linear-gradient(180deg, rgba(20, 17, 22, 0.85), rgba(8, 7, 10, 0.9));
+  border-color: rgba(var(--wod-accent-rgb), 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.wod-disc-tree[open] > .wod-disc-head {
+  border-bottom: 1px solid rgba(var(--wod-accent-rgb), 0.18);
+}
+
+.wod-disc-level.active {
+  background: rgba(var(--wod-accent-rgb), 0.06);
+}
+
+/* Acento por tema: a skin lê estas variáveis, então cada ficha mantém sua cor */
+:root {
+  --wod-accent: #c9a050;
+  --wod-accent-2: #791118;
+  --wod-accent-rgb: 201, 160, 80;
+}
+.wod-theme-vampire { --wod-accent: #c9a050; --wod-accent-2: #8b1a1a; --wod-accent-rgb: 201, 160, 80; }
+.wod-theme-werewolf { --wod-accent: #b5c98a; --wod-accent-2: #5a3d22; --wod-accent-rgb: 181, 201, 138; }
+.wod-theme-mage { --wod-accent: #9d8fe0; --wod-accent-2: #3d2f7a; --wod-accent-rgb: 157, 143, 224; }
+.wod-theme-hunter { --wod-accent: #e8772e; --wod-accent-2: #8b2e12; --wod-accent-rgb: 232, 119, 46; }
+.wod-theme-changeling { --wod-accent: #4fc38a; --wod-accent-2: #6b3a8c; --wod-accent-rgb: 79, 195, 138; }
+.wod-theme-wraith { --wod-accent: #9fb4c4; --wod-accent-2: #2f5a57; --wod-accent-rgb: 159, 180, 196; }
+.wod-theme-mortal { --wod-accent: #c8cdd4; --wod-accent-2: #4a5260; --wod-accent-rgb: 200, 205, 212; }
+
+/* ==========================================================================
+   Lobisomem: cartões de forma seguem o acento do tema (verde-musgo),
+   não o laranja fixo. Botões de forma usam o mesmo tamanho dos demais.
+   ========================================================================== */
+.wod-theme-werewolf .wod-form-card {
+  background: linear-gradient(180deg, rgba(20, 34, 26, 0.85), rgba(8, 13, 10, 0.92));
+  border-color: rgba(var(--wod-accent-rgb), 0.25);
+}
+
+.wod-theme-werewolf .wod-form-card.active {
+  border-color: var(--wod-accent, #a3c293);
+  box-shadow: 0 0 10px rgba(var(--wod-accent-rgb), 0.35), inset 0 0 0 1px rgba(var(--wod-accent-rgb), 0.15);
+  background: rgba(var(--wod-accent-rgb), 0.08);
+}
+
+.wod-form-name {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.wod-form-active-badge {
+  background: var(--wod-accent, #a3c293);
+  color: #0b140e;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.wod-form-shift-btn,
+.wod-form-rage-shift-btn {
+  min-height: 26px;
+  padding: 0 10px;
+  font-family: var(--wod-font, serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 4px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.wod-form-shift-btn {
+  background: rgba(var(--wod-accent-rgb), 0.1);
+  border: 1px solid rgba(var(--wod-accent-rgb), 0.5);
+  color: var(--wod-accent, #a3c293);
+}
+
+.wod-form-shift-btn:hover {
+  background: rgba(var(--wod-accent-rgb), 0.25);
+  border-color: var(--wod-accent, #a3c293);
+  color: #fff;
+}
+
+.wod-form-rage-shift-btn {
+  background: var(--wod-accent, #a3c293);
+  border: 1px solid var(--wod-accent, #a3c293);
+  color: #0b140e;
+}
+
+.wod-form-rage-shift-btn:hover {
+  background: #fff;
+  border-color: #fff;
+  transform: none;
+}
+
+.wod-form-mod-text {
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   Mago: painéis de magia (esferas e calculadora) seguem a moldura do tema
+   ========================================================================== */
+.wod-magick-panel,
+.wod-casting-box {
+  background: linear-gradient(180deg, rgba(24, 26, 40, 0.88), rgba(10, 11, 20, 0.94));
+  border: 1px solid rgba(var(--wod-accent-rgb), 0.28);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.wod-magick-panel {
+  padding: 12px 14px;
+}
+
+.wod-magick-panel .wod-section-title h3 {
+  font-family: var(--wod-font, serif);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--wod-accent, #d69e2e);
+  margin: 0;
+}
+
+.wod-magick-panel .wod-subtitle {
+  font-size: 12px;
+  color: var(--wod-text-muted);
+}
+
+.wod-magick-panel .wod-trait-row {
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(var(--wod-accent-rgb), 0.08);
+}
+
+.wod-sphere-label {
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+/* Cabeçalhos de seção: os temas definiam filete de 2px; a skin usa a faixa com degradê */
+.wod20th-sheet .wod-column-header {
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   Base de layout para classes usadas nas fichas que não tinham regra própria.
+   Sem isso, listas e grupos de ações ficavam sem espaçamento entre si.
+   ========================================================================== */
+.wod-trait-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wod-ability-row,
+.wod-single-trait {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 26px;
+}
+
+.wod-item-name,
+.wod-path-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--wod-font, serif);
+  font-weight: 600;
+  color: #f5eedf;
+}
+
+.wod-quick-actions,
+.wod-casting-actions,
+.wod-garou-actions,
+.wod-virtue-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.wod-casting-preview {
+  font-family: var(--wod-font, serif);
+  font-size: 13px;
+  color: var(--wod-accent, var(--wod-gold, #c9a050));
+}
+
+.wod-power-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+.wod-form-mods {
+  font-size: 12px;
+  color: var(--wod-text-muted);
+}
+
+.wod-forms-panel,
+.wod-active-form-details {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--wod-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.wod-boxes-10,
+.wod-dots-10,
+.wod-boxes-wheel,
+.wod-box-quint,
+.wod-wheel-slot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   Correção de transbordo: as colunas estavam cortando o conteúdo à direita.
+   Causas: cabeçalhos em nowrap, linhas com margem negativa e colunas sem min-width.
+   ========================================================================== */
+.wod-columns-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.wod-columns-3 > .wod-column {
+  min-width: 0;
+  padding: 12px 12px 14px;
+}
+
+.wod-column-header {
+  white-space: normal;
+  letter-spacing: 1px;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.wod-item-header {
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.wod-trait-row {
+  margin: 0;
+  min-width: 0;
+}
+
+.wod-trait-row:hover {
+  border-left-color: var(--wod-accent, #c9a050);
+}
+
+.wod-sheet-body {
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Virtudes: o botão de nome não tinha estilo e herdava o tamanho padrão do
+   navegador (~17px), que empurrava as bolinhas para fora da coluna.
+   Escolha: rótulo acima das bolinhas (sempre cabe, independe da fonte).
+   ========================================================================== */
+.wod-roll-virtue {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--wod-font, serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--wod-text, #e6e6e6);
+  text-align: left;
+  cursor: pointer;
+}
+
+.wod-roll-virtue:hover {
+  color: var(--wod-accent, #c9a050);
+}
+
+.wod-trait-row:has(> .wod-roll-virtue) {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+/* Trilhas de bolinhas nunca ultrapassam a coluna */
+.wod-column .wod-dots-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 100%;
+}
+
+/* Linhas de virtude empilhadas: nome em cima, bolinhas embaixo (classe no template) */
+.wod-trait-stack {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+/* Traço de texto + bolinhas (ex.: Humanidade): o campo de texto ocupa a largura toda */
+.wod-single-trait {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.wod-single-trait .wod-path-name {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Nome da disciplina numa linha só (cortado com reticências); bolinhas nunca quebram */
+.wod-disc-head {
+  flex-wrap: nowrap;
+}
+
+.wod-disc-head .wod-disc-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wod-disc-head .wod-dots-track {
+  flex: none;
+  flex-wrap: nowrap;
+  gap: 3px;
+}
+
+/* ==========================================================================
+   Lobisomem: formas em 5 colunas iguais; botões de forma ocupam a largura do
+   cartão e quebram texto em vez de vazar. Ações do Garou com o mesmo estilo.
+   ========================================================================== */
+.wod-theme-werewolf .wod-forms-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.wod-theme-werewolf .wod-form-card {
+  min-width: 0;
+  padding: 8px;
+}
+
+.wod-theme-werewolf .wod-form-header {
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.wod-theme-werewolf .wod-form-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wod-theme-werewolf .wod-form-active-badge {
+  flex: none;
+  white-space: nowrap;
+}
+
+.wod-theme-werewolf .wod-form-btn-group {
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+}
+
+.wod-theme-werewolf .wod-form-shift-btn,
+.wod-theme-werewolf .wod-form-rage-shift-btn {
+  width: 100%;
+  min-height: 28px;
+  padding: 4px 6px;
+  white-space: normal;
+  line-height: 1.2;
+  text-align: center;
+  font-size: 11px;
+}
+
+/* Ações do Garou: um estilo só, na cor do tema (sem verde/vermelho/laranja fixos) */
+.wod-theme-werewolf .wod-garou-actions .wod-btn,
+.wod-theme-werewolf .wod-garou-actions .wod20th-btn-roll {
+  min-height: 28px;
+  padding: 0 12px;
+  font-family: var(--wod-font, serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 4px;
+  background: rgba(var(--wod-accent-rgb), 0.1);
+  border: 1px solid rgba(var(--wod-accent-rgb), 0.5);
+  color: var(--wod-accent, #a3c293);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.wod-theme-werewolf .wod-garou-actions .wod-btn:hover,
+.wod-theme-werewolf .wod-garou-actions .wod20th-btn-roll:hover {
+  background: rgba(var(--wod-accent-rgb), 0.25);
+  border-color: var(--wod-accent, #a3c293);
+  color: #fff;
+}
+
+/* Cabeçalho do cartão de forma: nome em cima, selo "Forma ativa" embaixo, sem cobrir o nome */
+.wod-theme-werewolf .wod-form-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.wod-theme-werewolf .wod-form-name {
+  width: 100%;
+}
+
+.wod-theme-werewolf .wod-form-active-badge {
+  align-self: flex-start;
+}
+
+/* Roda de quintessência e paradoxo (mago): duas trilhas de 20 posições, uma caixa de cada por posição */
+.wod-boxes-wheel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.wod-wheel-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.wod-box-quint,
+.wod-box-paradox {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.wod-box-quint.checked {
+  background: radial-gradient(circle at 35% 30%, #d9e8ff 0%, #6f97e0 55%, #2a3f73 100%);
+  border-color: #9fbcf0;
+  box-shadow: 0 0 6px rgba(111, 151, 224, 0.6);
+}
+
+.wod-box-paradox.checked {
+  background: radial-gradient(circle at 35% 30%, #f3d6ff 0%, #a35fd6 55%, #4a1f6e 100%);
+  border-color: #c99bf0;
+  box-shadow: 0 0 6px rgba(163, 95, 214, 0.6);
+}
+
+/* ==========================================================================
+   Ornamentos próprios (assets/ui): cantos e divisores são máscaras SVG
+   pintadas com a cor do tema. Não vêm de nenhuma arte de terceiros.
+   ========================================================================== */
+.wod-columns-3 > .wod-column::before,
+.wod-columns-3 > .wod-column::after {
+  border: none;
+  width: 14px;
+  height: 14px;
+  opacity: 0.85;
+  background: var(--wod-accent, #c9a050);
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M2%2038V2h36%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M7%2033V7h26%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M11%2011l3-3%203%203-3%203z%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%2221%22%20r%3D%221.2%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M2%2038V2h36%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M7%2033V7h26%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M11%2011l3-3%203%203-3%203z%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%2221%22%20r%3D%221.2%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+}
+
+.wod-columns-3 > .wod-column::after {
+  transform: rotate(180deg);
+}
+
+.wod-column-header::after {
+  height: 10px;
+  background: var(--wod-accent, #c9a050);
+  opacity: 0.6;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%2016%22%3E%3Cpath%20d%3D%22M0%208H92M148%208H240%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%2F%3E%3Crect%20x%3D%22117%22%20y%3D%225%22%20width%3D%226%22%20height%3D%226%22%20transform%3D%22rotate(45%20120%208)%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%22104%22%20cy%3D%228%22%20r%3D%221.4%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%22136%22%20cy%3D%228%22%20r%3D%221.4%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / 100% 100%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%2016%22%3E%3Cpath%20d%3D%22M0%208H92M148%208H240%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%2F%3E%3Crect%20x%3D%22117%22%20y%3D%225%22%20width%3D%226%22%20height%3D%226%22%20transform%3D%22rotate(45%20120%208)%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%22104%22%20cy%3D%228%22%20r%3D%221.4%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%22136%22%20cy%3D%228%22%20r%3D%221.4%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / 100% 100%;
+}
+
+/* Variações de moldura por tema, todas feitas com CSS */
+.wod-theme-hunter .wod-columns-3 > .wod-column {
+  border-radius: 0;
+  clip-path: polygon(1% 0, 99% 1%, 100% 5%, 99% 96%, 97% 100%, 2% 99%, 0 95%, 1% 4%);
+}
+
+.wod-theme-mage .wod-columns-3 > .wod-column {
+  border-radius: 12px;
+  box-shadow: inset 0 0 18px rgba(var(--wod-accent-rgb), 0.08), 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+.wod-theme-wraith .wod-columns-3 > .wod-column {
+  border-style: double;
+  border-width: 3px;
+  border-color: rgba(var(--wod-accent-rgb), 0.35);
+}
+
+.wod-theme-changeling .wod-columns-3 > .wod-column {
+  border-radius: 10px;
+}
+
+.wod-theme-werewolf .wod-columns-3 > .wod-column {
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.5), 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+.wod-theme-mortal .wod-columns-3 > .wod-column {
+  background: rgba(16, 16, 18, 0.92);
+  box-shadow: none;
+  border-color: rgba(var(--wod-accent-rgb), 0.25);
+}
+
+/* ==========================================================================
+   Ornamentos da moldura da ficha: só nos quatro cantos externos, pequenos e
+   discretos, fora da área de conteúdo (pointer-events: none). A legibilidade
+   fica com o conteúdo: ornamento não passa de 60% de opacidade.
+   Hierarquia: moldura externa (cantos) > painéis (cantos finos) > seções (filete).
+   ========================================================================== */
+.wod20th-sheet::before,
+.wod20th-sheet::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: var(--wod-accent, #c9a050);
+  opacity: 0.55;
+  pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M2%2038V2h36%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M7%2033V7h26%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M11%2011l3-3%203%203-3%203z%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%2221%22%20r%3D%221.2%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cpath%20d%3D%22M2%2038V2h36%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M7%2033V7h26%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M11%2011l3-3%203%203-3%203z%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%2221%22%20r%3D%221.2%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+  z-index: 1;
+}
+
+.wod20th-sheet::before {
+  top: 4px;
+  left: 4px;
+}
+
+.wod20th-sheet::after {
+  bottom: 4px;
+  right: 4px;
+  transform: rotate(180deg);
+}
+
+/* Mago e caçador têm moldura mais aberta: ornamento um pouco menor */
+.wod-theme-mage.wod20th-sheet::before,
+.wod-theme-mage.wod20th-sheet::after,
+.wod-theme-hunter.wod20th-sheet::before,
+.wod-theme-hunter.wod20th-sheet::after {
+  width: 18px;
+  height: 18px;
+}
+
+/* Mortal: sem ornamento na moldura externa, só o filete dos painéis */
+.wod-theme-mortal.wod20th-sheet::before,
+.wod-theme-mortal.wod20th-sheet::after {
+  display: none;
+}
+
+/* Moldura da ficha: cantos maiores, em moldura dupla */
+.wod20th-sheet::before,
+.wod20th-sheet::after {
+  width: 34px;
+  height: 34px;
+  opacity: 0.75;
+}
+.wod20th-sheet::before { top: 2px; left: 2px; }
+.wod20th-sheet::after { bottom: 2px; right: 2px; }
+.wod-theme-mage.wod20th-sheet::before, .wod-theme-mage.wod20th-sheet::after,
+.wod-theme-hunter.wod20th-sheet::before, .wod-theme-hunter.wod20th-sheet::after {
+  width: 28px;
+  height: 28px;
+}
+
+/* Filete ornamental sob o cabeçalho da ficha */
+.wod-header {
+  position: relative;
+}
+.wod-header::after {
+  content: "";
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: -7px;
+  height: 10px;
+  background: var(--wod-accent, #c9a050);
+  opacity: 0.6;
+  pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%2016%22%3E%3Cpath%20d%3D%22M0%208H92M148%208H240%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%2F%3E%3Crect%20x%3D%22117%22%20y%3D%225%22%20width%3D%226%22%20height%3D%226%22%20transform%3D%22rotate(45%20120%208)%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%22104%22%20cy%3D%228%22%20r%3D%221.4%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%22136%22%20cy%3D%228%22%20r%3D%221.4%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / 100% 100%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%2016%22%3E%3Cpath%20d%3D%22M0%208H92M148%208H240%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%2F%3E%3Crect%20x%3D%22117%22%20y%3D%225%22%20width%3D%226%22%20height%3D%226%22%20transform%3D%22rotate(45%20120%208)%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%22104%22%20cy%3D%228%22%20r%3D%221.4%22%20fill%3D%22%23000%22%2F%3E%3Ccircle%20cx%3D%22136%22%20cy%3D%228%22%20r%3D%221.4%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / 100% 100%;
+}
+
+/* Changeling: títulos e cabeçalhos de seção com a fonte do lobisomem (assets/fonts/wta) */
+@font-face {
+  font-family: "WtaGarou";
+  src: url("../assets/fonts/wta/Garou.ttf") format("truetype");
+  font-display: swap;
+}
+
+.wod-theme-changeling .wod-header-logo h1,
+.wod-theme-changeling .wod-column-header {
+  font-family: "WtaGarou", var(--wod-font, serif);
+}
+
+/* Aba de experiência: resumo com três números e tabela de registro */
+.wod-xp-panel {
+  background: linear-gradient(180deg, rgba(24, 22, 28, 0.9), rgba(10, 9, 12, 0.95));
+  border: 1px solid rgba(var(--wod-accent-rgb, 201, 160, 80), 0.25);
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+
+.wod-xp-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 8px 0 14px 0;
+}
+
+.wod-xp-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
+  border: 1px solid rgba(var(--wod-accent-rgb, 201, 160, 80), 0.25);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.wod-xp-stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--wod-text-muted);
+}
+
+.wod-xp-stat-value {
+  font-family: var(--wod-font, serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--wod-accent, #c9a050);
+}
+
+.wod-xp-stat-available .wod-xp-stat-value {
+  color: #fff;
+}
+
+.wod-xp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.wod-xp-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--wod-text-muted);
+  border-bottom: 1px solid rgba(var(--wod-accent-rgb, 201, 160, 80), 0.25);
+  padding: 4px 6px;
+}
+
+.wod-xp-table td {
+  padding: 5px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.wod-xp-num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.wod-xp-row.earn .wod-xp-num {
+  color: #8fd694;
+}
+
+.wod-xp-row.spend .wod-xp-num {
+  color: #ff8a8a;
+}
+
+.wod-xp-delete {
+  background: none;
+  border: none;
+  color: var(--wod-text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.wod-xp-delete:hover {
+  color: #ff6b6b;
+}
+
+.wod-btn-add-xp {
+  min-height: 26px;
+  padding: 0 10px;
+  font-family: var(--wod-font, serif);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 1px solid rgba(var(--wod-accent-rgb, 201, 160, 80), 0.5);
+  background: rgba(var(--wod-accent-rgb, 201, 160, 80), 0.08);
+  color: var(--wod-accent, #c9a050);
+  cursor: pointer;
+}
+
+.wod-xp-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   Cabeçalho da ficha: arco ornamental próprio por trás do título, na cor do tema.
+   Barra da janela (fechar, copiar, menu) com o mesmo fundo da ficha: um bloco só.
+   As classes da barra (.loom-window-header) seguem o padrão do Loom; se a barra
+   não mudar, a classe exata deve ser conferida no DOM.
+   ========================================================================== */
+.wod-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.wod-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--wod-accent, #c9a050);
+  opacity: 0.12;
+  pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20160%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M40%20150%20V70%20Q40%2012%20400%2012%20Q760%2012%20760%2070%20V150%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M70%20150%20V76%20Q70%2040%20400%2040%20Q730%2040%20730%2076%20V150%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M0%20150%20H800%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M400%204%20L408%2012%20L400%2020%20L392%2012%20Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / 100% 100%;
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20160%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M40%20150%20V70%20Q40%2012%20400%2012%20Q760%2012%20760%2070%20V150%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M70%20150%20V76%20Q70%2040%20400%2040%20Q730%2040%20730%2076%20V150%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M0%20150%20H800%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M400%204%20L408%2012%20L400%2020%20L392%2012%20Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / 100% 100%;
+}
+
+.loom-window.wod20th-gothic-sheet {
+  background: linear-gradient(180deg, #17131a 0%, #0c0a0d 100%);
+  border: 1px solid rgba(var(--wod-accent-rgb, 201, 160, 80), 0.35);
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.loom-window.wod20th-gothic-sheet .loom-window-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(var(--wod-accent-rgb, 201, 160, 80), 0.25);
+  color: var(--wod-accent, #c9a050);
+  font-family: var(--wod-font, serif);
+  letter-spacing: 1.5px;
+}
+
+/* Barra da janela fundida com a ficha: sem faixa separada, sem o nome do
+   personagem/tema por cima. Ficam só os botões (copiar, menu e fechar), por
+   cima do cabeçalho. Seletores seguem o padrão do Loom; confirmar no DOM se
+   algum não pegar. */
+.loom-window.wod20th-gothic-sheet {
+  background: linear-gradient(180deg, rgba(var(--wod-accent-rgb, 201, 160, 80), 0.08) 0%, #0c0a0d 22%);
+  border-top: none;
+}
+
+.loom-window.wod20th-gothic-sheet .loom-window-header {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  min-height: 0;
+  height: 30px;
+  padding: 0;
+}
+
+.loom-window.wod20th-gothic-sheet .loom-window-header .loom-window-title,
+.loom-window.wod20th-gothic-sheet .loom-window-title {
+  display: none;
+}
+
+/* Controles da janela (copiar, menu, fechar) no canto superior direito, sobre o
+   cabeçalho. A barra sai do fluxo: o topo da ficha sobe e o título fica onde estava. */
+.loom-window.wod20th-gothic-sheet .loom-window-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: auto;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+  z-index: 20;
+  background: transparent;
+  border: none;
+}
+
+.loom-window.wod20th-gothic-sheet .loom-window-body {
+  position: relative;
+}
+
+.wod20th-gothic-sheet .wod20th-sheet {
+  padding-top: 6px;
+}
+
+/* Barra de controles da janela sem fundo escuro: o cabeçalho do banner do Loom
+   usa um degradê com !important; esta regra é mais específica e também usa !important */
+.loom-window.wod20th-gothic-sheet .loom-window-header {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Botões de sangue da vampira: menores e lado a lado */
+.wod-vampire-heal,
+.wod-vampire-buff {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 0 8px;
+  margin: 2px 4px 2px 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Roda de quintessência e paradoxo (mago): anel de 20 posições por trilha */
+.wod-ring {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  margin: 8px auto;
+}
+
+.wod-ring .wod-box {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  border-radius: 2px;
+}
+
+.wod-ring .wod-box-quint.checked,
+.wod-ring .wod-box-paradox.checked {
+  border-radius: 50%;
+}
+
+.wod-ring-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--wod-font, serif);
+  font-size: 12px;
+  color: var(--wod-text, #e6e6e6);
+  white-space: nowrap;
+}
+
+.wod-ring-label-top { top: -6px; }
+.wod-ring-label-bottom { bottom: -6px; }
+
+/* Arete (mago): rótulo à esquerda, botão de rolagem pequeno à direita, bolinhas abaixo */
+.wod-arete-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* Roda de quintessência e paradoxo: um anel de 20 posições, zero à esquerda */
+.wod-ring-slot {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.wod-ring-slot.quint-on {
+  background: radial-gradient(circle at 35% 30%, #d9e8ff 0%, #6f97e0 55%, #2a3f73 100%);
+  border-color: #9fbcf0;
+}
+
+.wod-ring-slot.paradox-on {
+  background: radial-gradient(circle at 35% 30%, #f3d6ff 0%, #a35fd6 55%, #4a1f6e 100%);
+  border-color: #c99bf0;
+}
+
+.wod-ring-slot.cancelled {
+  background: repeating-linear-gradient(45deg, #6f97e0 0 3px, #a35fd6 3px 6px);
+  border-color: #cfcfcf;
+}
+
+.wod-ring-zero {
+  position: absolute;
+  left: 2%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  background: var(--wod-gold, #c9a050);
+}
+
+.wod-ring-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--wod-text, #e6e6e6);
+}
+
+/* Controles do paradoxo embaixo da roda: uma linha só, alinhada */
+.wod-ring-controls {
+  flex-wrap: nowrap;
+  gap: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  margin-top: 6px;
+}
+
+.wod-ring-controls .wod-paradox-step {
+  min-width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  justify-content: center;
+}
+
+/* Botões de lançamento e descarga do mago: mesmo estilo de contorno dos demais botões */
+.wod-btn-cast-spell,
+.wod-btn-paradox-backlash {
+  min-height: 28px;
+  padding: 0 12px;
+  font-family: var(--wod-font, serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 4px;
+  background: rgba(var(--wod-accent-rgb, 201, 160, 80), 0.08);
+  border: 1px solid rgba(var(--wod-accent-rgb, 201, 160, 80), 0.5);
+  color: var(--wod-accent, #c9a050);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.wod-btn-cast-spell:hover,
+.wod-btn-paradox-backlash:hover {
+  background: rgba(var(--wod-accent-rgb, 201, 160, 80), 0.22);
+  border-color: var(--wod-accent, #c9a050);
+  color: #fff;
+}

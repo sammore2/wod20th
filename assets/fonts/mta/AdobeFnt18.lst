@@ -1,0 +1,208 @@
+%!Adobe-FontList 1.18
+%Locale:0xc0a
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Abbess
+FamilyName:Abbess
+StyleName:Regular
+FullName:Abbess Regular
+MenuName:Abbess
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\abbess-regular.ttf
+DataFormat:sfntData
+hasSVG:no
+FileLength:66168
+FileModTime:1490361184
+WeightClass:5
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Abbess Regular
+NameArray:0,Win,1,Abbess
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:BookAntiqua-Italic
+FamilyName:Book Antiqua
+StyleName:Italic
+FullName:Book Antiqua Italic
+MenuName:Book Antiqua
+StyleBits:1
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\ANTQUAI.TTF
+DataFormat:sfntData
+hasSVG:no
+FileLength:149092
+FileModTime:1495005862
+WeightClass:400
+WidthClass:5
+AngleClass:1
+NameArray:0,Mac,4,Book Antiqua Italic
+NameArray:0,Win,1,Book Antiqua
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:ArialMT
+FamilyName:Arial
+StyleName:Regular
+FullName:Arial
+MenuName:Arial
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\arial.ttf
+DataFormat:sfntData
+hasSVG:no
+FileLength:1036584
+FileModTime:1523489648
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Arial
+NameArray:0,Win,1,Arial
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Arial-Black
+FamilyName:Arial
+StyleName:Black
+FullName:Arial Black
+MenuName:Arial Black
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\ariblk.ttf
+DataFormat:sfntData
+hasSVG:no
+FileLength:167592
+FileModTime:1523489650
+WeightClass:900
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Arial Black
+NameArray:0,Win,1,Arial Black
+NameArray:0,Win,16,Arial
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:FuturaPT-Book
+FamilyName:Futura PT
+StyleName:Book
+FullName:Futura PT Book
+MenuName:Futura PT Book
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\FuturaPTBook.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+FileLength:112916
+FileModTime:1364573854
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Futura PT Book
+NameArray:0,Win,1,Futura PT Book
+NameArray:0,Win,16,Futura PT
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GoudyOldStyleT-Regular
+FamilyName:Goudy Old Style
+StyleName:Regular
+FullName:Goudy Old Style
+MenuName:Goudy Old Style
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\GOUDOS.TTF
+DataFormat:sfntData
+hasSVG:no
+FileLength:81376
+FileModTime:1495005862
+WeightClass:400
+WidthClass:6
+AngleClass:0
+NameArray:0,Mac,4,Goudy Old Style
+NameArray:0,Win,1,Goudy Old Style
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GoudyOldStyleT-Bold
+FamilyName:Goudy Old Style
+StyleName:Bold
+FullName:Goudy Old Style Bold
+MenuName:Goudy Old Style
+StyleBits:2
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\GOUDOSB_0.TTF
+DataFormat:sfntData
+hasSVG:no
+FileLength:82796
+FileModTime:934974838
+WeightClass:700
+WidthClass:6
+AngleClass:0
+NameArray:0,Mac,4,Goudy Old Style Bold
+NameArray:0,Win,1,Goudy Old Style
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:GoudyOldStyleT-Italic
+FamilyName:Goudy Old Style
+StyleName:Italic
+FullName:Goudy Old Style Italic
+MenuName:Goudy Old Style
+StyleBits:1
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\GOUDOSI_0.TTF
+DataFormat:sfntData
+hasSVG:no
+FileLength:80280
+FileModTime:934974838
+WeightClass:400
+WidthClass:5
+AngleClass:1
+NameArray:0,Mac,4,Goudy Old Style Italic
+NameArray:0,Win,1,Goudy Old Style
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MinionPro-Regular
+FamilyName:Minion Pro
+StyleName:Regular
+FullName:Minion Pro
+MenuName:Minion Pro
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:D:\Dropbox\White Wolf\Storytellers Vault\Mage Templates\Final\M20 Template Interior\Document fonts\MinionPro-Regular_0.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+FileLength:218640
+FileModTime:1363364732
+WeightClass:400
+WidthClass:5
+AngleClass:0
+DesignSize:110
+NameArray:0,Mac,4,Minion Pro
+NameArray:0,Win,1,Minion Pro
+%EndFont
+

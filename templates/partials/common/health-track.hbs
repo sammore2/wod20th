@@ -1,0 +1,20 @@
+<div class="wod-column">
+  <h4 class="wod-column-header">{{localize "system.sheet.health"}}</h4>
+  <p class="wod-info-text">{{localize "system.sheet.healthInfo"}}</p>
+
+  <div class="wod-health-track">
+    {{#each healthTrack}}
+    <div class="wod-health-row">
+      <div class="wod-health-label">
+        <span>{{localize this.labelKey}}</span>
+        {{#if this.isPenalized}}
+        <span class="wod-health-penalty">({{this.penalty}})</span>
+        {{/if}}
+      </div>
+      <div class="wod-health-box {{this.state}}" data-level="{{this.id}}">
+        {{this.symbol}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>

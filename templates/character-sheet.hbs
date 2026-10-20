@@ -1,0 +1,138 @@
+<form class="wod20th-sheet wod-theme-{{document.type}}" autocomplete="off">
+  <!-- BARRA LATERAL GÓTICA FLUTUANTE INTEGRADA AO DOM DA JANELA -->
+  <nav class="cp-side-tabs">
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'stats')}}active{{/if}}" data-action="tab" data-tab="stats" title="{{localize "system.sheet.tabs.stats"}}">
+      <i class="fas fa-fist-raised"></i>
+    </button>
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'advantages')}}active{{/if}}" data-action="tab" data-tab="advantages" title="{{localize "system.sheet.tabs.advantages"}}">
+      <i class="fas fa-tint"></i>
+    </button>
+    {{#if isWerewolf}}
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'forms')}}active{{/if}}" data-action="tab" data-tab="forms" title="{{localize "system.werewolf.tabForms"}}">
+      <i class="fas fa-paw"></i>
+    </button>
+    {{/if}}
+    {{#if isMage}}
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'magick')}}active{{/if}}" data-action="tab" data-tab="magick" title="{{localize "system.mage.tabMagick"}}">
+      <i class="fas fa-magic"></i>
+    </button>
+    {{/if}}
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'combat')}}active{{/if}}" data-action="tab" data-tab="combat" title="{{localize "system.sheet.tabs.combat"}}">
+      <i class="fas fa-crosshairs"></i>
+    </button>
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'bio')}}active{{/if}}" data-action="tab" data-tab="bio" title="{{localize "system.sheet.tabs.bio"}}">
+      <i class="fas fa-scroll"></i>
+    </button>
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'xp')}}active{{/if}}" data-action="tab" data-tab="xp" title="Experiência">
+      <i class="fas fa-star"></i>
+    </button>
+    <button type="button" class="wod-tab-btn wod-tab-roll" data-action="quick-roll" title="{{localize "system.dialog.generalRoll"}}">
+      <i class="fas fa-dice-d20"></i>
+    </button>
+  </nav>
+
+  <!-- CABEÇALHO CLÁSSICO STORYTELLER COM RETRATO VISUAL -->
+  <header class="wod-header">
+    <div class="wod-portrait-container">
+      <div class="wod-portrait-frame" data-action="editImage" data-edit="img" title="{{localize "system.sheet.portrait.clickToChange"}}">
+        <img
+          class="wod-portrait-img{{#unless hasCustomPortrait}} is-default{{/unless}}"
+          src="{{img}}"
+          alt="{{document.name}}"
+          data-action="editImage"
+          data-edit="img"
+        />
+        <div class="wod-portrait-overlay">
+          <span class="wod-portrait-icon">📷</span>
+          <span class="wod-portrait-text">{{localize "system.sheet.portrait.change"}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="wod-header-content">
+      <div class="wod-header-logo">
+        <h1>{{#if themeConfig.title}}{{themeConfig.title}}{{else}}{{localize "system.name"}}{{/if}}</h1>
+        <h2>{{#if themeConfig.edition}}{{themeConfig.edition}}{{else}}{{localize "system.edition"}}{{/if}}</h2>
+      </div>
+
+      <!-- CABEÇALHO DINÂMICO CONFORME O TIPO DO ATOR -->
+      {{#if isVampire}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/headers/header-vampire.hbs"}}
+      {{else if isWerewolf}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/headers/header-werewolf.hbs"}}
+      {{else if isMage}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/headers/header-mage.hbs"}}
+      {{else if isChangeling}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/headers/header-changeling.hbs"}}
+      {{else if isWraith}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/headers/header-wraith.hbs"}}
+      {{else if isHunter}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/headers/header-hunter.hbs"}}
+      {{else}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/headers/header-mortal.hbs"}}
+      {{/if}}
+    </div>
+  </header>
+
+  <!-- CORPO DAS ABAS -->
+  <main class="wod-sheet-body">
+
+    <!-- ABA 1: ATRIBUTOS E HABILIDADES (COMUM A TODOS) -->
+    <div class="wod-tab-pane {{#if (eq activeTab 'stats')}}active{{/if}}" data-tab="stats">
+      {{> "/marketplace/rulesets/wod20th/templates/partials/common/attributes.hbs"}}
+      {{> "/marketplace/rulesets/wod20th/templates/partials/common/abilities.hbs"}}
+    </div>
+
+    <!-- ABA 2: VANTAGENS & RECURSOS (ESPECIALIZADA POR TIPO) -->
+    <div class="wod-tab-pane {{#if (eq activeTab 'advantages')}}active{{/if}}" data-tab="advantages">
+      {{#if isVampire}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/advantages/advantages-vampire.hbs"}}
+      {{else if isWerewolf}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/advantages/advantages-werewolf.hbs"}}
+      {{else if isMage}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/advantages/advantages-mage.hbs"}}
+      {{else if isChangeling}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/advantages/advantages-changeling.hbs"}}
+      {{else if isWraith}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/advantages/advantages-wraith.hbs"}}
+      {{else if isHunter}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/advantages/advantages-hunter.hbs"}}
+      {{else}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/advantages/advantages-mortal.hbs"}}
+      {{/if}}
+    </div>
+
+    <!-- ABA 3A: FORMAS GAROU (EXCLUSIVA DE LOBISOMEM) -->
+    {{#if isWerewolf}}
+    <div class="wod-tab-pane {{#if (eq activeTab 'forms')}}active{{/if}}" data-tab="forms">
+      {{> "/marketplace/rulesets/wod20th/templates/partials/special/werewolf-forms.hbs"}}
+    </div>
+    {{/if}}
+
+    <!-- ABA 3B: ESFERAS & MÁGIKA (EXCLUSIVA DE MAGO) -->
+    {{#if isMage}}
+    <div class="wod-tab-pane {{#if (eq activeTab 'magick')}}active{{/if}}" data-tab="magick">
+      {{> "/marketplace/rulesets/wod20th/templates/partials/special/mage-magick.hbs"}}
+    </div>
+    {{/if}}
+
+    <!-- ABA 4: VITALIDADE & COMBATE (COMUM A TODOS) -->
+    <div class="wod-tab-pane {{#if (eq activeTab 'combat')}}active{{/if}}" data-tab="combat">
+      <div class="wod-columns-2">
+        {{> "/marketplace/rulesets/wod20th/templates/partials/common/health-track.hbs"}}
+        {{> "/marketplace/rulesets/wod20th/templates/partials/common/combat-stats.hbs"}}
+      </div>
+    </div>
+
+    <!-- ABA 6: EXPERIÊNCIA (ganho, gasto e não gasto) -->
+    <div class="wod-tab-pane {{#if (eq activeTab 'xp')}}active{{/if}}" data-tab="xp">
+      {{> "/marketplace/rulesets/wod20th/templates/partials/common/xp.hbs"}}
+    </div>
+
+    <!-- ABA 5: BIOGRAFIA & EXPERIÊNCIA (COMUM A TODOS) -->
+    <div class="wod-tab-pane {{#if (eq activeTab 'bio')}}active{{/if}}" data-tab="bio">
+      {{> "/marketplace/rulesets/wod20th/templates/partials/common/bio.hbs"}}
+    </div>
+
+  </main>
+</form>

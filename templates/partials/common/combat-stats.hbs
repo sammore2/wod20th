@@ -1,0 +1,61 @@
+<div class="wod-column">
+  <h4 class="wod-column-header">{{localize "system.sheet.derivedStats"}}</h4>
+  <div class="wod-combat-stats">
+    <div class="wod-stat-card wod-stat-clickable wod-roll-initiative" title="{{localize "system.combat.rollInitiativeTooltip"}}">
+      <span class="wod-stat-num">{{derived.initiative}}</span>
+      <span class="wod-stat-label">🎲 {{localize "system.sheet.initiative"}}</span>
+    </div>
+    <div class="wod-stat-card wod-stat-clickable wod-roll-soak" title="{{localize "system.combat.rollSoakTooltip"}}">
+      <span class="wod-stat-num">{{derived.soak}}</span>
+      <span class="wod-stat-label">🛡 {{localize "system.sheet.soak"}}</span>
+    </div>
+    <div class="wod-stat-card">
+      <span class="wod-stat-num">{{derived.healthPenalty}}</span>
+      <span class="wod-stat-label">{{localize "system.sheet.healthPenalty"}}</span>
+    </div>
+  </div>
+
+  <div class="wod-item-header" style="margin-top: 20px;">
+    <h4 class="wod-column-header">{{localize "system.sheet.weapons"}}</h4>
+    <button type="button" class="wod-add-item-btn" data-type="weapon">{{localize "system.sheet.newWeapon"}}</button>
+  </div>
+  <div class="wod-item-list">
+    {{#each itemsCategorized.weapons}}
+    <div class="wod-item-row">
+      <div class="wod-item-main">
+        <span class="wod-item-name">⚔ {{this.name}}</span>
+        <span class="wod-item-subtext">{{#if this.systemData.damage}}{{this.systemData.damage}}{{else}}For+1{{/if}} ({{#if this.systemData.damageType}}{{this.systemData.damageType}}{{else}}letal{{/if}}) | Dif {{#if this.systemData.difficulty}}{{this.systemData.difficulty}}{{else}}6{{/if}}</span>
+      </div>
+      <div class="wod-item-actions">
+        <button type="button" class="wod-action-icon-btn wod-weapon-attack-btn" data-id="{{this.id}}" title="{{localize "system.combat.attackRoll"}}">🎯</button>
+        <button type="button" class="wod-action-icon-btn wod-weapon-damage-btn" data-id="{{this.id}}" title="{{localize "system.combat.damageRoll"}}">💥</button>
+        <button type="button" class="wod-item-edit" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">✎</button>
+        <button type="button" class="wod-item-delete" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+    </div>
+    {{else}}
+    <div class="wod-empty-msg">{{localize "system.sheet.emptyWeapons"}}</div>
+    {{/each}}
+  </div>
+
+  <div class="wod-item-header" style="margin-top: 20px;">
+    <h4 class="wod-column-header">{{localize "system.sheet.armors"}}</h4>
+    <button type="button" class="wod-add-item-btn" data-type="armor">{{localize "system.sheet.newArmor"}}</button>
+  </div>
+  <div class="wod-item-list">
+    {{#each itemsCategorized.armors}}
+    <div class="wod-item-row">
+      <div class="wod-item-main">
+        <span class="wod-item-name">🛡 {{this.name}}</span>
+        <span class="wod-item-subtext">+{{#if this.systemData.soak}}{{this.systemData.soak}}{{else if this.systemData.armorSoak}}{{this.systemData.armorSoak}}{{else}}1{{/if}} Soak</span>
+      </div>
+      <div class="wod-item-actions">
+        <button type="button" class="wod-item-edit" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">✎</button>
+        <button type="button" class="wod-item-delete" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+      </div>
+    </div>
+    {{else}}
+    <div class="wod-empty-msg">{{localize "system.sheet.emptyArmors"}}</div>
+    {{/each}}
+  </div>
+</div>

@@ -1,0 +1,277 @@
+<form class="wod20th-sheet wod-item-sheet" autocomplete="off">
+  <header class="wod-header">
+    <div class="wod-field-row" style="align-items: center; justify-content: space-between; width: 100%;">
+      <div class="wod-field" style="flex: 2;">
+        <label>{{localize "system.sheet.name"}}:</label>
+        <input type="text" name="name" value="{{document.name}}" placeholder="{{localize "system.sheet.name"}}" style="font-family: var(--wod-font, serif); font-size: 16px; font-weight: 700; color: var(--wod-gold);" />
+      </div>
+      <div class="wod-badge wod-item-type-badge" style="margin-left: 10px; text-transform: uppercase;">
+        {{document.type}}
+      </div>
+    </div>
+  </header>
+
+  <nav class="wod-tabs">
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'details')}}active{{/if}}" data-tab="details">
+      {{#if isPower}}PODERES & PROPRIEDADES{{else}}{{localize "system.item.tabDetails"}}{{/if}}
+    </button>
+    <button type="button" class="wod-tab-btn {{#if (eq activeTab 'description')}}active{{/if}}" data-tab="description">
+      {{localize "system.item.tabDescription"}}
+    </button>
+  </nav>
+
+  <main class="wod-sheet-body">
+    <!-- ABA DE DETALHES -->
+    <div class="wod-tab-pane {{#if (eq activeTab 'details')}}active{{/if}}" data-tab="details">
+      
+      {{#unless isPower}}
+      <!-- NÍVEL / PONTOS GERAIS & ESCALA MÁXIMA (itens que não são poderes) -->
+      <div class="wod-trait-row" style="margin-bottom: 15px; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.35); padding: 8px 14px; border-radius: 4px; border: 1px solid rgba(200,160,80,0.25);">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span class="wod-column-header" style="border: none; margin: 0; padding: 0; font-size: 13px;">{{localize "system.item.ratingLevel"}} ({{level}}):</span>
+          <div class="wod-dots-track">
+            {{#each levelDots}}
+            <button type="button" class="wod-dot {{#if this.filled}}filled{{/if}}" data-action="set-level" data-path="level" data-index="{{this.index}}" title="Definir nível {{this.index}}" style="cursor: pointer;"></button>
+            {{/each}}
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <label style="font-size: 11px; color: var(--wod-gold, #c9a050); text-transform: uppercase; letter-spacing: 0.5px;">Escala Máxima:</label>
+          <select name="maxLevel" class="wod-select" style="width: auto; padding: 3px 8px;">
+            <option value="5" {{#if (eq maxLevel 5)}}selected{{/if}}>1 a 5 (Padrão)</option>
+            <option value="10" {{#if (eq maxLevel 10)}}selected{{/if}}>1 a 10 (Anciões / Mestres)</option>
+          </select>
+        </div>
+      </div>
+      {{/unless}}
+
+      <!-- GERENCIAMENTO COMPLETO DE PODERES POR NÍVEL (DISCIPLINAS, DONS, ARTES, TRILHAS) -->
+      {{#if isPower}}
+      <div class="wod-powers-toolbar">
+        <div class="wod-canonical-loader">
+          <select name="canonical_disc_select" class="wod-select wod-select-canonical">
+            <option value="">-- Carregar Disciplina Canônica (V20) --</option>
+            {{#each canonicalDisciplinesList}}
+            <option value="{{this.key}}">{{this.name}}</option>
+            {{/each}}
+          </select>
+          <button type="button" class="wod-btn-action wod-btn-gold" data-action="load-canonical" title="Preencher com os poderes oficiais de Nível 1 a 5">
+            ⚡ Carregar Oficiais
+          </button>
+        </div>
+        <button type="button" class="wod-btn-action wod-btn-crimson" data-action="add-power" title="Adicionar um novo poder">
+          + Adicionar Poder
+        </button>
+      </div>
+
+      <div class="wod-powers-list">
+        {{#if hasPowers}}
+          {{#each powers}}
+          <div class="wod-power-card" data-index="{{this.index}}">
+            <div class="wod-power-card-header">
+              <div class="wod-power-title-wrap">
+                <span class="wod-power-level-tag">Nível {{this.level}}</span>
+                <input type="text" name="powers.{{this.index}}.name" value="{{this.name}}" placeholder="Nome do Poder" class="wod-power-name-input" />
+              </div>
+              <div class="wod-power-card-actions">
+                <button type="button" class="wod-btn-roll-mini" data-action="roll-power" data-index="{{this.index}}" title="Rolar teste deste poder">
+                  🎲 Rolar
+                </button>
+                <button type="button" class="wod-btn-del-mini" data-action="delete-power" data-index="{{this.index}}" title="Excluir este poder">
+                  🗑️
+                </button>
+              </div>
+            </div>
+            
+            <div class="wod-power-card-body">
+              <input type="hidden" name="powers.{{this.index}}.level" value="{{this.level}}" />
+              <div class="wod-power-row">
+                <div class="wod-form-group">
+                  <label>Atributo:</label>
+                  <select name="powers.{{this.index}}.poolAttribute" class="wod-select">
+                    {{#each ../attributesList}}
+                    <option value="{{this.key}}" {{#if (eq ../poolAttribute this.key)}}selected{{/if}}>{{this.label}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+                <div class="wod-form-group">
+                  <label>Habilidade:</label>
+                  <select name="powers.{{this.index}}.poolAbility" class="wod-select">
+                    {{#each ../abilitiesList}}
+                    <option value="{{this.key}}" {{#if (eq ../poolAbility this.key)}}selected{{/if}}>{{this.label}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+                <div class="wod-form-group">
+                  <label>Dif.:</label>
+                  <input type="number" name="powers.{{this.index}}.difficulty" value="{{#if this.difficulty}}{{this.difficulty}}{{else}}6{{/if}}" min="2" max="10" />
+                </div>
+                <div class="wod-form-group">
+                  <label>Custo:</label>
+                  <input type="text" name="powers.{{this.index}}.cost" value="{{this.cost}}" placeholder="ex: 1 Sangue, Gratuito" />
+                </div>
+                <div class="wod-form-group">
+                  <label>Duração:</label>
+                  <input type="text" name="powers.{{this.index}}.duration" value="{{this.duration}}" placeholder="ex: 1 Cena, Instantâneo" />
+                </div>
+              </div>
+              <details class="wod-power-desc">
+                <summary>Descrição e regras{{#unless this.description}} (vazio){{/unless}}</summary>
+                <textarea name="powers.{{this.index}}.description" rows="3" class="wod-textarea-sm" placeholder="Efeito mecânico e regras deste poder conforme a crônica...">{{this.description}}</textarea>
+              </details>
+            </div>
+          </div>
+          {{/each}}
+        {{else}}
+          <div class="wod-powers-empty">
+            <p><strong>Nenhum poder cadastrado nesta disciplina ainda.</strong></p>
+            <p class="wod-empty-hint">Selecione uma disciplina no menu acima e clique em <strong>⚡ Carregar Oficiais</strong> para preencher automaticamente com os poderes do V20, ou clique em <strong>+ Adicionar Poder</strong> para criar seus próprios poderes customizados.</p>
+          </div>
+        {{/if}}
+      </div>
+      {{/if}}
+
+      <!-- CAMPOS ESPECÍFICOS DE ARMA -->
+      {{#if isWeapon}}
+      <div class="wod-item-grid-2">
+        <div class="wod-form-group">
+          <label>{{localize "system.item.damage"}}:</label>
+          <input type="text" name="systemData.damage" value="{{system.damage}}" placeholder="ex: For+2, 4d10" />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.damageType"}}:</label>
+          <select name="systemData.damageType" class="wod-select">
+            <option value="lethal" {{#if (eq system.damageType 'lethal')}}selected{{/if}}>{{localize "system.combat.lethal"}}</option>
+            <option value="bashing" {{#if (eq system.damageType 'bashing')}}selected{{/if}}>{{localize "system.combat.bashing"}}</option>
+            <option value="aggravated" {{#if (eq system.damageType 'aggravated')}}selected{{/if}}>{{localize "system.combat.aggravated"}}</option>
+          </select>
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.difficulty"}}:</label>
+          <input type="number" name="systemData.difficulty" value="{{system.difficulty}}" placeholder="6" />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.conceal"}}:</label>
+          <input type="text" name="systemData.conceal" value="{{system.conceal}}" placeholder="Bolsa, Casaco, N/A" />
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- CAMPOS ESPECÍFICOS DE ARMADURA -->
+      {{#if isArmor}}
+      <div class="wod-item-grid-2">
+        <div class="wod-form-group">
+          <label>{{localize "system.item.soakBonus"}}:</label>
+          <input type="number" name="systemData.soak" value="{{system.soak}}" placeholder="2" />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.dexPenalty"}}:</label>
+          <input type="number" name="systemData.dexPenalty" value="{{system.dexPenalty}}" placeholder="-1" />
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- CAMPOS ESPECÍFICOS DE FETICHE / TALIS (W20) -->
+      {{#if (or isFetish isTalen)}}
+      <div class="wod-item-grid-2">
+        <div class="wod-form-group">
+          <label>{{localize "system.item.fetishGnosis"}}:</label>
+          <input type="number" name="systemData.gnosis" value="{{system.gnosis}}" placeholder="6" />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.boundSpirit"}}:</label>
+          <input type="text" name="systemData.spirit" value="{{system.spirit}}" placeholder="Espírito da Guerra..." />
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- CAMPOS ESPECÍFICOS DE RITO / RITUAL -->
+      {{#if (or isRite isRitual)}}
+      <div class="wod-item-grid-2">
+        <div class="wod-form-group">
+          <label>{{localize "system.item.category"}}:</label>
+          <input type="text" name="systemData.category" value="{{system.category}}" placeholder="Acordo, Místico, Taumaturgia..." />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.castingTime"}}:</label>
+          <input type="text" name="systemData.castingTime" value="{{system.castingTime}}" placeholder="10 minutos, 1 cena" />
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- CAMPOS ESPECÍFICOS DE ROTE (M20) -->
+      {{#if isRote}}
+      <div class="wod-item-grid-2">
+        <div class="wod-form-group">
+          <label>{{localize "system.item.spheresRequired"}}:</label>
+          <input type="text" name="systemData.spheres" value="{{system.spheres}}" placeholder="ex: Forças 3, Primórdio 2" />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.castingType"}}:</label>
+          <select name="systemData.castingType" class="wod-select">
+            <option value="coincidental" {{#if (eq system.castingType 'coincidental')}}selected{{/if}}>{{localize "system.mage.coincidental"}}</option>
+            <option value="vulgar" {{#if (eq system.castingType 'vulgar')}}selected{{/if}}>{{localize "system.mage.vulgar"}}</option>
+            <option value="vulgar_witnessed" {{#if (eq system.castingType 'vulgar_witnessed')}}selected{{/if}}>{{localize "system.mage.vulgarWitnessed"}}</option>
+          </select>
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.quintCost"}}:</label>
+          <input type="number" name="systemData.quintCost" value="{{system.quintCost}}" placeholder="0" />
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- CAMPOS ESPECÍFICOS DE MARAVILHA / TALISMÃ (M20) -->
+      {{#if isWonder}}
+      <div class="wod-item-grid-2">
+        <div class="wod-form-group">
+          <label>{{localize "system.item.wonderArete"}}:</label>
+          <input type="number" name="systemData.arete" value="{{system.arete}}" placeholder="3" />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.quintCharge"}}:</label>
+          <input type="number" name="systemData.quintCharge" value="{{system.quintCharge}}" placeholder="10" />
+        </div>
+        <div class="wod-form-group" style="grid-column: span 2;">
+          <label>{{localize "system.item.imbuedSpheres"}}:</label>
+          <input type="text" name="systemData.imbuedSpheres" value="{{system.imbuedSpheres}}" placeholder="ex: Correspondência 2, Mente 1" />
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- CAMPOS ESPECÍFICOS DE TOTEM -->
+      {{#if isTotem}}
+      <div class="wod-item-grid-2">
+        <div class="wod-form-group">
+          <label>{{localize "system.item.totemCost"}}:</label>
+          <input type="number" name="systemData.cost" value="{{system.cost}}" placeholder="5" />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.totemBan"}}:</label>
+          <input type="text" name="systemData.ban" value="{{system.ban}}" placeholder="Nunca comer carne de presa..." />
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- CAMPOS ESPECÍFICOS DE QUALIDADE / DEFEITO -->
+      {{#if isMeritFlaw}}
+      <div class="wod-item-grid-2">
+        <div class="wod-form-group">
+          <label>{{localize "system.item.pointCost"}}:</label>
+          <input type="number" name="systemData.cost" value="{{system.cost}}" placeholder="ex: 2 ou -3" />
+        </div>
+        <div class="wod-form-group">
+          <label>{{localize "system.item.category"}}:</label>
+          <input type="text" name="systemData.category" value="{{system.category}}" placeholder="Físico, Social, Mental, Sobrenatural" />
+        </div>
+      </div>
+      {{/if}}
+
+    </div>
+
+    <!-- ABA DE DESCRIÇÃO (NOTAS PESSOAIS / LORE) -->
+    <div class="wod-tab-pane {{#if (eq activeTab 'description')}}active{{/if}}" data-tab="description">
+      <textarea name="systemData.description" class="wod-textarea" rows="14" placeholder="Escreva aqui a descrição geral, lore, história e notas da crônica para este item ou disciplina...">{{system.description}}</textarea>
+    </div>
+  </main>
+</form>

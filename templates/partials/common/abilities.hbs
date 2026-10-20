@@ -1,0 +1,30 @@
+<section class="wod-section">
+  <div class="wod-section-title">
+    <h3>{{localize "system.sheet.abilities"}}</h3>
+  </div>
+
+  <div class="wod-columns-3">
+    {{#each abilityGroups}}
+    <div class="wod-column">
+      <h4 class="wod-column-header">{{localize this.labelKey}}</h4>
+      {{#each this.abilities}}
+      <div class="wod-trait-row wod-ability-row">
+        <button type="button" class="wod-roll-ability" data-ability="{{this.key}}" data-label-key="{{this.labelKey}}" data-val="{{this.value}}" data-spec="{{this.specialty}}" title="{{localize "system.sheet.abilityTooltip"}}">
+          {{localize this.labelKey}}
+        </button>
+        <div class="wod-dots-track">
+          {{#each this.dots}}
+          <span class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="{{../path}}" data-index="{{this.index}}" data-min="0"></span>
+          {{/each}}
+        </div>
+      </div>
+      {{#if (gte this.value 4)}}
+      <div class="wod-spec-input-row">
+        <input type="text" name="systemData.abilities.{{this.key}}.specialty" value="{{this.specialty}}" placeholder="{{localize "system.sheet.specialtyPlaceholder"}}" />
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
+</section>
