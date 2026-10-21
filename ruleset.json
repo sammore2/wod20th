@@ -8,6 +8,14 @@
   "author": "SamDev",
   "description": "Estrutura inicial do sistema World of Darkness 20th Edition para LoomVTT.",
   "license": "MIT",
+  "licenseNotice": {
+    "title": "Licenciado sob o Dark Pack",
+    "html": "Partes dos materiais são direitos autorais e marcas registradas da Paradox Interactive AB e são usadas com permissão. Todos os direitos reservados. Para mais informações, visite <a href=\"https://worldofdarkness.com\" target=\"_blank\" rel=\"noopener\">worldofdarkness.com</a>.",
+    "icon": "/marketplace/rulesets/wod20th/assets/logos/darkpack-logo-color.png"
+  },
+  "backgroundUrl": "/marketplace/rulesets/wod20th/assets/bg-wod20.png",
+  "coverUrl": "/marketplace/rulesets/wod20th/assets/bg-wod20.png",
+  "img": "/marketplace/rulesets/wod20th/assets/bg-wod20.png",
   "active": true,
   "client": "client.mjs",
   "styles": [

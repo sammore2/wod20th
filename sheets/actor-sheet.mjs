@@ -206,6 +206,7 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
       context.virtuesList = this._prepareVirtues(system.virtues || {});
       context.humanityDots = this._buildDotsArray(system.humanity?.value || 1, 10);
       const catalog = await loadDisciplines();
+      await this._migrateDisciplineRatings(catalog);
       const fullTree = this._prepareDisciplineTree(system, derived.activeAttributes || system.attributes || {}, catalog);
       context.disciplineTree = fullTree.filter(d => d.dots > 0);
       context.availableDisciplines = fullTree.filter(d => d.dots === 0).map(d => ({ key: d.key, name: d.name }));
@@ -294,7 +295,8 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
     context.xpLog = xpLog.map((e, idx) => ({ ...e, index: idx, isEarn: e.kind === 'earn' }));
 
     // 10. Categorização Completa dos 24 Itens
-    context.itemsCategorized = this._prepareItems();
+    const discCatalog = await loadDisciplines();
+    context.itemsCategorized = this._prepareItems(discCatalog);
 
     // 11. Disciplinas Inline
     const rawDisciplines = Array.isArray(system.disciplines) ? system.disciplines : [];
@@ -558,21 +560,123 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
     });
   }
 
-  _prepareItems() {
+  async _migrateDisciplineRatings(catalog) {
+    if (!this.isEditable) return;
+    const system = this.document.systemData || {};
+    const ratings = system.disciplineRatings;
+    if (!ratings || typeof ratings !== 'object') return;
+    const entries = Object.entries(ratings).filter(([k, v]) => parseInt(v, 10) > 0);
+    if (!entries.length) return;
+
+    const loomApi = api || window.Loom?.api;
+    const actorId = this.actorId;
+    if (!loomApi || !actorId) return;
+
+    let itemsCreated = false;
+    const currentItems = [...(this.document.items || [])];
+
+    for (const [key, rating] of entries) {
+      const disc = catalog[key] || { name: key, powers: [] };
+      const exists = currentItems.some(i => (i.name || '').toLowerCase() === (disc.name || '').toLowerCase());
+      if (!exists) {
+        try {
+          const data = {
+            level: parseInt(rating, 10) || 1,
+            maxLevel: 5,
+            disciplineKey: key,
+            powers: disc.powers || [],
+            description: disc.description || ''
+          };
+          const res = await loomApi.post(`/actors/${actorId}/items`, {
+            name: disc.name,
+            type: 'discipline',
+            data,
+            systemData: data
+          });
+          const created = res?.data || res;
+          if (created) {
+            currentItems.push(created);
+            itemsCreated = true;
+          }
+        } catch (err) {
+          console.error('[wod20th] Erro ao migrar disciplina legada:', err);
+        }
+      }
+    }
+
+    try {
+      await loomApi.put(`/actors/${actorId}`, {
+        'systemData.disciplineRatings': null,
+        ...(itemsCreated ? { items: currentItems } : {})
+      });
+      if (this.document.systemData) {
+        delete this.document.systemData.disciplineRatings;
+      }
+      if (itemsCreated) {
+        this.document.items = currentItems;
+      }
+    } catch (_) {}
+  }
+
+  _prepareItems(catalog = {}) {
     const rawItems = this.document.items || [];
+    const attrs = this.document.systemData?.derived?.activeAttributes || this.document.systemData?.attributes || {};
+    const abilities = this.document.systemData?.abilities || {};
+    const willpower = this.document.systemData?.willpower || {};
+
     const items = rawItems.map(item => {
-      const system = item.systemData || {};
-      const level = parseInt(system.level ?? system.rating ?? 1, 10);
+      const system = { ...(item.data || {}), ...(item.systemData || {}) };
+      const level = Math.max(0, parseInt(system.level ?? system.rating ?? item.level ?? 1, 10));
       const maxLevel = Math.max(1, parseInt(system.maxLevel, 10) || 5);
       const dots = [];
       for (let d = 1; d <= maxLevel; d++) {
         dots.push({ index: d, filled: d <= level });
       }
+
+      const itemId = item.id || item._id;
+
+      // Se for disciplina, prepara poderes e pools para exibição e rolagem
+      let powers = [];
+      if (item.type === 'discipline') {
+        const rawPowers = Array.isArray(system.powers) && system.powers.length > 0
+          ? system.powers
+          : (catalog[system.disciplineKey]?.powers ||
+             Object.values(catalog).find(c => (c.name || '').toLowerCase() === (item.name || '').toLowerCase())?.powers ||
+             []);
+
+        powers = rawPowers.map(p => {
+          const attrVal = p.poolAttribute === 'willpower'
+            ? (parseInt(willpower.value, 10) || 0)
+            : (parseInt(attrs[p.poolAttribute], 10) || 0);
+          const abRaw = abilities[p.poolAbility];
+          const abVal = p.poolAbility ? (parseInt(abRaw?.value ?? abRaw, 10) || 0) : 0;
+          const attrLabel = t(`system.attributes.${p.poolAttribute}`, p.poolAttribute);
+          const abLabel = p.poolAbility ? t(`system.abilities.${p.poolAbility}`, p.poolAbility) : '';
+          const pool = Math.max(1, attrVal + abVal);
+          return {
+            level: p.level,
+            name: p.name,
+            cost: p.cost || '',
+            duration: p.duration || '',
+            description: p.description || '',
+            difficulty: p.difficulty || 6,
+            pool,
+            poolText: abLabel ? `${attrLabel} + ${abLabel}` : attrLabel,
+            active: p.level <= level
+          };
+        });
+      }
+
       return {
         ...item,
+        id: itemId,
+        data: system,
+        systemData: system,
         level,
         maxLevel,
-        dots
+        dots,
+        powers,
+        open: this._openDisciplines.has(itemId)
       };
     });
 
@@ -821,30 +925,34 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
   }
 
   /**
-   * Janela para escolher uma disciplina do catálogo que o personagem ainda não tem.
-   * Ao confirmar, a disciplina entra com 1 ponto.
+   * Janela para escolher uma disciplina canônica ou criar customizada.
+   * Cria um Item do tipo 'discipline' com poderes oficiais preenchidos e 1 ponto.
    */
   async openAddDisciplineDialog() {
     if (!this.isEditable) return;
     const catalog = await loadDisciplines();
-    const ratings = this.document.systemData?.disciplineRatings || {};
-    const available = Object.entries(catalog).filter(([k]) => !(parseInt(ratings[k], 10) > 0));
-    if (!available.length) {
-      window.Loom?.notifications?.info?.('Todas as disciplinas já foram adicionadas.');
-      return;
+    const existingDisciplines = (this.document.items || []).filter(i => i.type === 'discipline');
+    const existingNames = new Set(existingDisciplines.map(d => (d.name || '').toLowerCase().trim()));
+    const available = Object.entries(catalog).filter(([k, d]) => !existingNames.has((d.name || '').toLowerCase().trim()));
+
+    let options = '<option value="__custom__">+ Nova / Personalizada...</option>';
+    if (available.length) {
+      options += available.map(([k, d]) => `<option value="${k}">${d.name} (${d.powers.length} poderes)</option>`).join('');
     }
 
-    const options = available.map(([k, d]) => `<option value="${k}">${d.name} (${d.powers.length} poderes)</option>`).join('');
-
     const DialogClass = window.Loom?.LoomDialog || LoomDialog;
-    if (!DialogClass?.wait) return;
+    if (!DialogClass?.wait) {
+      const id = await this.createItem('discipline', { level: 1, maxLevel: 5, powers: [] }, 'Nova Disciplina');
+      if (id) await this.openItemSheet(id);
+      return;
+    }
 
     const key = await DialogClass.wait({
       window: { title: 'Adicionar Disciplina' },
       width: 420,
-      content: `<div class="wod-disc-picker">
-        <label class="wod-disc-pick-label">Escolha a disciplina:</label>
-        <select name="disc_pick" class="wod-select wod-disc-select">${options}</select>
+      content: `<div class="wod-disc-picker" style="padding: 10px 0;">
+        <label class="wod-disc-pick-label" style="display: block; margin-bottom: 6px; font-weight: 600; color: var(--wod-gold, #c9a050);">Escolha a disciplina:</label>
+        <select name="disc_pick" class="wod-select wod-disc-select" style="width: 100%;">${options}</select>
       </div>`,
       buttons: [
         {
@@ -867,11 +975,26 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
     });
 
     if (!key) return;
-    await this.updateActor({ [`systemData.disciplineRatings.${key}`]: 1 });
+
+    if (key === '__custom__') {
+      const id = await this.createItem('discipline', { level: 1, maxLevel: 5, powers: [] }, 'Nova Disciplina');
+      if (id) await this.openItemSheet(id);
+    } else {
+      const disc = catalog[key];
+      if (disc) {
+        await this.createItem('discipline', {
+          level: 1,
+          maxLevel: 5,
+          disciplineKey: key,
+          powers: disc.powers || [],
+          description: disc.description || ''
+        }, disc.name);
+      }
+    }
   }
 
   async openItemSheet(itemId) {
-    const item = (this.document?.items || []).find(i => i.id === itemId);
+    const item = (this.document?.items || []).find(i => (i.id === itemId || i._id === itemId));
     if (!item) return;
     const ItemSheetClass = sheets.get('item', item.type) || sheets.get('item', '*');
     if (!ItemSheetClass) return;
@@ -879,9 +1002,9 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
     await windowManager.open(`item-sheet-${itemId}`, ItemSheetClass, { itemId, document: item, worldId });
   }
 
-  async createItem(type, extraData = {}) {
+  async createItem(type, extraData = {}, customName = null) {
     const actorId = this.actorId;
-    if (!type || !actorId) return;
+    if (!type || !actorId) return null;
     const defaultData = {
       level: 1,
       maxLevel: 5,
@@ -892,49 +1015,57 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
       description: '',
       ...extraData
     };
-    const defaultName = type === 'discipline' ? 'Nova Disciplina' :
-                        type === 'ritual' ? 'Novo Ritual' :
-                        type === 'gift' ? 'Novo Dom' :
-                        type === 'rite' ? 'Novo Rito' :
-                        type === 'weapon' ? 'Nova Arma' :
-                        type === 'armor' ? 'Nova Armadura' :
-                        type === 'merit' ? 'Nova Qualidade' :
-                        type === 'flaw' ? 'Novo Defeito' :
-                        type === 'background' ? 'Novo Antecedente' :
-                        type === 'edge' ? 'Nova Borda' :
-                        type === 'derangement' ? 'Novo Distúrbio' :
-                        type === 'passion' ? 'Nova Paixão' :
-                        type === 'power' ? 'Nova Borda / Poder' :
-                        type === 'rote' ? 'Novo Rote' :
-                        type === 'grimoire' ? 'Novo Grimório' :
-                        type === 'wonder' ? 'Nova Maravilha' :
-                        type === 'fetish' ? 'Novo Fetiche' :
-                        type === 'talen' ? 'Novo Tali' :
-                        type === 'totem' ? 'Novo Totem' :
-                        type === 'art' ? 'Nova Arte' :
-                        type === 'realm' ? 'Novo Reino' :
-                        type === 'arcanoi' ? 'Novo Arcanoi' :
-                        type === 'artifact' ? 'Novo Artefato' :
-                        `Novo(a) ${type}`;
+    const defaultName = customName || (
+      type === 'discipline' ? 'Nova Disciplina' :
+      type === 'ritual' ? 'Novo Ritual' :
+      type === 'gift' ? 'Novo Dom' :
+      type === 'rite' ? 'Novo Rito' :
+      type === 'weapon' ? 'Nova Arma' :
+      type === 'armor' ? 'Nova Armadura' :
+      type === 'merit' ? 'Nova Qualidade' :
+      type === 'flaw' ? 'Novo Defeito' :
+      type === 'background' ? 'Novo Antecedente' :
+      type === 'edge' ? 'Nova Borda' :
+      type === 'derangement' ? 'Novo Distúrbio' :
+      type === 'passion' ? 'Nova Paixão' :
+      type === 'power' ? 'Nova Borda / Poder' :
+      type === 'rote' ? 'Novo Rote' :
+      type === 'grimoire' ? 'Novo Grimório' :
+      type === 'wonder' ? 'Nova Maravilha' :
+      type === 'fetish' ? 'Novo Fetiche' :
+      type === 'talen' ? 'Novo Tali' :
+      type === 'totem' ? 'Novo Totem' :
+      type === 'art' ? 'Nova Arte' :
+      type === 'realm' ? 'Novo Reino' :
+      type === 'arcanoi' ? 'Novo Arcanoi' :
+      type === 'artifact' ? 'Novo Artefato' :
+      `Novo(a) ${type}`
+    );
 
     let createdId = null;
     const loomApi = api || window.Loom?.api;
     if (loomApi) {
       try {
-        const res = await loomApi.post(`/actors/${actorId}/items`, {
+        const payload = {
           name: defaultName,
           type,
           data: defaultData,
           systemData: defaultData,
           imgUrl: ''
-        });
-        createdId = res?.id || res?.data?.id;
+        };
+        const res = await loomApi.post(`/actors/${actorId}/items`, payload);
+        createdId = res?.id || res?.data?.id || res?._id || res?.data?._id;
+        const newItem = res?.data || res || { ...payload, id: createdId };
+        if (this.document.items && createdId) {
+          this.document.items.push(newItem);
+        }
       } catch (err) {
         console.error('[wod20th] Erro ao criar item via api:', err);
       }
     }
 
     await this._reloadDocument();
+    return createdId;
   }
 
   async deleteItem(itemId) {
@@ -946,6 +1077,16 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
       } catch (err) {
         console.error('[wod20th] Erro ao excluir item via api:', err);
       }
+      const actorId = this.actorId;
+      if (actorId && this.document.items) {
+        try {
+          const nextItems = this.document.items.filter(it => it.id !== itemId && it._id !== itemId);
+          await loomApi.put(`/actors/${actorId}`, { items: nextItems });
+          this.document.items = nextItems;
+        } catch (err) {
+          console.warn('[wod20th] Aviso ao sincronizar remoção em actor.items:', err);
+        }
+      }
     }
     await this._reloadDocument();
   }
@@ -953,9 +1094,13 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
   async setItemLevel(itemId, level) {
     if (!itemId) return;
     const cleanLevel = Math.max(0, parseInt(level, 10) || 0);
-    const item = (this.document.items || []).find(i => i.id === itemId);
+    const item = (this.document.items || []).find(i => (i.id === itemId || i._id === itemId));
     if (!item) return;
-    // Salva o item inteiro (mesmo formato da ficha de item), trocando só o nível
+
+    if (item.data) item.data.level = cleanLevel;
+    if (item.systemData) item.systemData.level = cleanLevel;
+    item.level = cleanLevel;
+
     const merged = { ...(item.data || {}), ...(item.systemData || {}), level: cleanLevel };
     const loomApi = api || window.Loom?.api;
     if (loomApi) {
@@ -963,6 +1108,21 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
         await loomApi.put(`/items/${itemId}`, { data: merged, systemData: merged });
       } catch (err) {
         console.error('[wod20th] Erro ao atualizar nível do item via api:', err);
+      }
+      const actorId = this.actorId;
+      if (actorId && this.document.items) {
+        try {
+          const nextItems = this.document.items.map(it => {
+            if (it.id === itemId || it._id === itemId) {
+              return { ...it, data: merged, systemData: merged, level: cleanLevel };
+            }
+            return it;
+          });
+          await loomApi.put(`/actors/${actorId}`, { items: nextItems });
+          this.document.items = nextItems;
+        } catch (err) {
+          console.warn('[wod20th] Aviso ao sincronizar item em actor.items:', err);
+        }
       }
     }
     await this._reloadDocument();
@@ -1269,6 +1429,7 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
     root.querySelectorAll('.wod-item-delete-btn').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         e.preventDefault();
+        e.stopPropagation();
         if (!this.isEditable) return;
         const id = btn.dataset.id;
         if (id) await this.deleteItem(id);
@@ -1276,9 +1437,10 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
     });
 
     // 7.3 Botão Editar / Abrir Ficha do Item
-    root.querySelectorAll('.wod-item-edit-btn, .wod-item-title-clickable').forEach(el => {
+    root.querySelectorAll('.wod-item-edit-btn, .wod-item-title-clickable, .wod-link-btn').forEach(el => {
       el.addEventListener('click', async (e) => {
         e.preventDefault();
+        e.stopPropagation();
         const id = el.dataset.id;
         if (id) await this.openItemSheet(id);
       });
@@ -1288,12 +1450,14 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
     root.querySelectorAll('.wod-item-dot').forEach(dot => {
       dot.addEventListener('click', async (e) => {
         e.preventDefault();
+        e.stopPropagation();
         if (!this.isEditable) return;
         const id = dot.dataset.id;
         const clickedIndex = parseInt(dot.dataset.index, 10);
-        const item = (this.document.items || []).find(i => i.id === id);
+        const item = (this.document.items || []).find(i => (i.id === id || i._id === id));
         if (!item) return;
-        const currentVal = parseInt(item.systemData?.level ?? 1, 10);
+        const sys = { ...(item.data || {}), ...(item.systemData || {}) };
+        const currentVal = parseInt(sys.level ?? item.level ?? 1, 10);
         let newVal = clickedIndex;
         if (clickedIndex === currentVal) {
           newVal = Math.max(0, clickedIndex - 1);
@@ -1604,6 +1768,7 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
     root.querySelectorAll('.wod-roll-tree-power').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         openRollDialog({
           actor: this.document,
           traitType: 'power',
@@ -1611,6 +1776,19 @@ export class WoDActorSheet extends LoomHandlebarsMixin(LoomActorSheet) {
           traitValue: parseInt(btn.dataset.pool, 10) || 1,
           difficulty: parseInt(btn.dataset.diff, 10) || 6
         });
+      });
+    });
+
+    // 7.9c Salva o estado expandido das disciplinas para manter aberto no re-render
+    root.querySelectorAll('.wod-disc-tree').forEach(dt => {
+      dt.addEventListener('toggle', () => {
+        const id = dt.dataset.id || dt.dataset.key;
+        if (!id) return;
+        if (dt.open) {
+          this._openDisciplines.add(id);
+        } else {
+          this._openDisciplines.delete(id);
+        }
       });
     });
 

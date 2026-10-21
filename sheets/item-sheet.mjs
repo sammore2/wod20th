@@ -325,6 +325,7 @@ export class WoDItemSheet extends LoomHandlebarsMixin(LoomItemSheet) {
       try {
         await loomApi.put(`/items/${id}`, submitData);
         if (this.document) {
+          if (topLevelUpdate.name !== undefined) this.document.name = topLevelUpdate.name;
           if (!this.document.data) this.document.data = {};
           if (!this.document.systemData) this.document.systemData = {};
           Object.assign(this.document.data, itemData);
@@ -373,7 +374,27 @@ export class WoDItemSheet extends LoomHandlebarsMixin(LoomItemSheet) {
       }
 
       if (target.name === 'name') {
-        await this.updateItem({ name: value });
+        const cleanName = String(value || '').trim();
+        if (this.document) this.document.name = cleanName;
+        await this.updateItem({ name: cleanName });
+
+        // Sincroniza imediatamente com o ator pai se for um item embutido
+        const actorId = this.document?.actorId || this.document?.parent?.id;
+        const loomApi = api || window.Loom?.api;
+        if (actorId && loomApi) {
+          try {
+            const actor = await loomApi.get('/actors/' + actorId);
+            if (actor && Array.isArray(actor.items)) {
+              const updatedItems = actor.items.map(i => {
+                if ((i.id || i._id) === this.itemId) {
+                  return { ...i, name: cleanName };
+                }
+                return i;
+              });
+              await loomApi.put('/actors/' + actorId, { items: updatedItems }).catch(() => {});
+            }
+          } catch {}
+        }
       } else {
         await this.updateItem({ [target.name]: value });
       }

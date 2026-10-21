@@ -6,57 +6,42 @@
       <button type="button" class="wod-btn-add-discipline" title="Escolher uma disciplina para adicionar ao personagem">+ Disciplina</button>
     </div>
 
-    <!-- ADICIONAR DISCIPLINA: só aparecem as que o personagem possui (pontos > 0) -->
-    <!-- ÁRVORE DE DISCIPLINAS DO PERSONAGEM: clique nas bolinhas para o nível; expanda para ver poderes e rolar -->
+    <!-- LISTA UNIFICADA DE DISCIPLINAS: Dots na ficha e caixa de edição no ✎ -->
     <div class="wod-disc-tree-list">
-      {{#each disciplineTree}}
-      <details class="wod-disc-tree" data-key="{{this.key}}" {{#if this.open}}open{{/if}}>
+      {{#each itemsCategorized.disciplines}}
+      <details class="wod-disc-tree" data-id="{{this.id}}" {{#if this.open}}open{{/if}}>
         <summary class="wod-disc-head">
           <span class="wod-disc-name">{{this.name}}</span>
           <span class="wod-dots-track">
-            {{#each this.dotsArr}}
-            <button type="button" class="wod-dot {{#if this.filled}}filled{{/if}}" data-path="disciplineRatings.{{../key}}" data-index="{{this.index}}" data-min="0" title="Nível {{this.index}}"></button>
+            {{#each this.dots}}
+            <button type="button" class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}" title="Nível {{this.index}}"></button>
             {{/each}}
           </span>
+          <div class="wod-disc-head-actions">
+            <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="Editar disciplina e poderes (caixa de edição)">&#9998;</button>
+            <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
+          </div>
         </summary>
+        {{#if this.powers.length}}
         <ol class="wod-disc-levels">
           {{#each this.powers}}
           <li class="wod-disc-level {{#if this.active}}active{{else}}locked{{/if}}" title="{{this.description}}">
             <span class="wod-disc-lvl">{{this.level}}</span>
             <span class="wod-disc-pname">{{this.name}}</span>
-            <span class="wod-disc-meta">{{this.poolText}} · Dif {{this.difficulty}} · {{this.cost}}</span>
+            <span class="wod-disc-meta">{{this.poolText}}{{#if this.difficulty}} · Dif {{this.difficulty}}{{/if}}{{#if this.cost}} · {{this.cost}}{{/if}}</span>
             {{#if this.active}}
             <button type="button" class="wod-roll-tree-power" data-pool="{{this.pool}}" data-diff="{{this.difficulty}}" data-label="{{../name}}: {{this.name}}" title="Rolar {{this.name}} ({{this.pool}} dados)">🎲 {{this.pool}}</button>
             {{/if}}
           </li>
           {{/each}}
         </ol>
-      </details>
-      {{/each}}
-    </div>
-
-    <!-- DISCIPLINAS CUSTOMIZADAS (itens) -->
-    <div class="wod-item-header" style="margin-top: 14px;">
-      <h4 class="wod-column-header">Customizadas</h4>
-      <button type="button" class="wod-btn-add-item" data-type="discipline" title="{{localize "system.sheet.add"}}">{{localize "system.sheet.add"}}</button>
-    </div>
-
-    <!-- LISTA DE ITENS DE DISCIPLINAS CUSTOMIZADAS -->
-    <div class="wod-trait-list">
-      {{#each itemsCategorized.disciplines}}
-      <div class="wod-trait-row" data-id="{{this.id}}">
-        <button type="button" class="wod-roll-item-power" data-id="{{this.id}}" data-name="{{this.name}}" data-level="{{this.level}}" title="Rolar {{this.name}}">
-          <i class="fas fa-dice-d10"></i>
-        </button>
-        <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}" title="Clique para editar a ficha do poder">{{this.name}}</span>
-        <div class="wod-dots-track">
-          {{#each this.dots}}
-          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
-          {{/each}}
+        {{else}}
+        <div class="wod-disc-empty-powers">
+          <span>Sem poderes configurados.</span>
+          <button type="button" class="wod-link-btn" data-action="open-item" data-id="{{this.id}}">Configurar Poderes / Pools</button>
         </div>
-        <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>
-        <button type="button" class="wod-item-delete-btn" data-action="delete-item" data-id="{{this.id}}" title="{{localize "system.sheet.delete"}}">&times;</button>
-      </div>
+        {{/if}}
+      </details>
       {{/each}}
       {{#unless itemsCategorized.disciplines.length}}
       <div class="wod-empty-msg">{{localize "system.sheet.emptyDisciplines"}}</div>
@@ -77,7 +62,7 @@
         <span class="wod-item-title-clickable" data-action="open-item" data-id="{{this.id}}" title="Clique para editar a ficha do ritual">{{this.name}}</span>
         <div class="wod-dots-track">
           {{#each this.dots}}
-          <span class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}"></span>
+          <button type="button" class="wod-item-dot {{#if this.filled}}filled{{/if}}" data-id="{{../id}}" data-index="{{this.index}}" title="Nível {{this.index}}"></button>
           {{/each}}
         </div>
         <button type="button" class="wod-item-edit-btn" data-action="open-item" data-id="{{this.id}}" title="{{localize "system.sheet.edit"}}">&#9998;</button>

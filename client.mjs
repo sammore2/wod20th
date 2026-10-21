@@ -2,6 +2,7 @@ import { SystemRegistry, defineSystem, sheets, settings } from '/_loom/sdk/index
 import { WoDActorSheet } from './sheets/actor-sheet.mjs';
 import { WoDItemSheet } from './sheets/item-sheet.mjs';
 import { registerWoDRollCard } from './scripts/dice.mjs';
+import { initWoDSettings } from './scripts/wod-settings.mjs';
 import {
   getActiveWerewolfAttributes,
   getVampireGenerationLimits,
@@ -36,6 +37,9 @@ if (settingsRegistry?.register) {
     }
   });
 }
+
+// Inicializa Rodapé do Dark Pack na aba de Configurações da Sidebar
+initWoDSettings();
 
 // 1. Registra o Sistema Central no LoomVTT
 SystemRegistry.register(defineSystem({

@@ -1518,7 +1518,43 @@
   background: transparent;
   cursor: pointer;
   display: inline-block;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  box-sizing: border-box;
+  line-height: 1;
+  vertical-align: middle;
   transition: all 0.15s ease;
+}
+
+.wod-disc-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+
+.wod-disc-empty-powers {
+  padding: 6px 12px;
+  font-size: 11px;
+  color: #a89a80;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wod-link-btn {
+  background: transparent;
+  border: none;
+  color: var(--wod-gold, #c9a050);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 0;
+}
+
+.wod-link-btn:hover {
+  color: #fff;
 }
 
 .wod-item-dot.filled {
@@ -2003,6 +2039,54 @@
   min-width: 660px;
   display: flex;
   flex-direction: column;
+}
+
+.wod-item-header-banner {
+  width: 100%;
+  border-bottom: 2px solid var(--wod-crimson, #791118);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.wod-item-header-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.wod-item-name-label {
+  font-family: var(--wod-font, serif);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--wod-gold, #c9a050);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+
+.wod-item-name-input {
+  flex: 1 !important;
+  width: 100% !important;
+  min-width: 200px !important;
+  box-sizing: border-box !important;
+  background: rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(200, 160, 80, 0.35) !important;
+  border-radius: 4px !important;
+  color: var(--wod-gold, #c9a050) !important;
+  font-family: var(--wod-font, serif) !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  padding: 6px 12px !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.2s ease;
+}
+
+.wod-item-name-input:focus {
+  border-color: var(--wod-gold, #c9a050) !important;
+  box-shadow: 0 0 10px rgba(200, 160, 80, 0.4) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  outline: none !important;
 }
 
 .wod-powers-toolbar {
@@ -3214,14 +3298,14 @@
 
 /* Changeling: títulos e cabeçalhos de seção com a fonte do lobisomem (assets/fonts/wta) */
 @font-face {
-  font-family: "WtaGarou";
-  src: url("../assets/fonts/wta/Garou.ttf") format("truetype");
+  font-family: "ChangelingDisplay";
+  src: url("../assets/fonts/ctd/BoydUncial.ttf") format("truetype");
   font-display: swap;
 }
 
 .wod-theme-changeling .wod-header-logo h1,
 .wod-theme-changeling .wod-column-header {
-  font-family: "WtaGarou", var(--wod-font, serif);
+  font-family: "ChangelingDisplay", var(--wod-font, serif);
 }
 
 /* Aba de experiência: resumo com três números e tabela de registro */
@@ -3357,6 +3441,50 @@
   pointer-events: none;
   -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20160%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M40%20150%20V70%20Q40%2012%20400%2012%20Q760%2012%20760%2070%20V150%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M70%20150%20V76%20Q70%2040%20400%2040%20Q730%2040%20730%2076%20V150%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M0%20150%20H800%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M400%204%20L408%2012%20L400%2020%20L392%2012%20Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / 100% 100%;
   mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20160%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M40%20150%20V70%20Q40%2012%20400%2012%20Q760%2012%20760%2070%20V150%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M70%20150%20V76%20Q70%2040%20400%2040%20Q730%2040%20730%2076%20V150%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%2F%3E%3Cpath%20d%3D%22M0%20150%20H800%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M400%204%20L408%2012%20L400%2020%20L392%2012%20Z%22%20fill%3D%22%23000%22%2F%3E%3C%2Fsvg%3E") no-repeat center / 100% 100%;
+}
+
+/* Cabeçalho em grade: título centralizado na largura toda; retrato em coluna própria */
+.wod-header {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  column-gap: 20px;
+  align-items: start;
+}
+.wod-header-content {
+  display: contents;
+}
+.wod-header-logo {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  margin-bottom: 10px;
+}
+.wod-portrait-container {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: stretch;
+}
+.wod-portrait-container .wod-portrait-frame {
+  height: 100%;
+}
+.wod-header-fields {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Campos do cabeçalho: rótulo acima e input com a largura da coluna, todos do mesmo tamanho */
+.wod-header-fields .wod-field-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.wod-header-fields .wod-field {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  min-width: 0;
+}
+.wod-header-fields .wod-field input {
+  flex: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .loom-window.wod20th-gothic-sheet {
@@ -3574,5 +3702,66 @@
 .wod-btn-paradox-backlash:hover {
   background: rgba(var(--wod-accent-rgb, 201, 160, 80), 0.22);
   border-color: var(--wod-accent, #c9a050);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Dark Pack Attribution Footer (Sidebar Settings)
+   ========================================================================== */
+.settings-sidebar #license-information,
+.wod-darkpack-license-section {
+  margin: 12px 0 6px 0;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(200, 160, 80, 0.25);
+  border-radius: 4px;
+}
+
+.wod-darkpack-license-section h4.divider {
+  font-family: var(--wod-font, serif);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--wod-gold, #c9a050);
+  border-bottom: 1px solid rgba(200, 160, 80, 0.3);
+  padding-bottom: 4px;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wod-darkpack-logo-wrap {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.wod-darkpack-logo {
+  max-width: 140px;
+  height: auto;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  transition: opacity 0.2s ease;
+}
+
+.wod-darkpack-logo:hover {
+  opacity: 1;
+}
+
+.wod-darkpack-text,
+#license-information p {
+  font-size: 11px;
+  line-height: 1.45;
+  color: #a89a80;
+  text-align: justify;
+  margin: 0;
+}
+
+.wod-darkpack-text a,
+#license-information a {
+  color: var(--wod-gold, #c9a050);
+  text-decoration: underline;
+}
+
+.wod-darkpack-text a:hover,
+#license-information a:hover {
   color: #fff;
 }

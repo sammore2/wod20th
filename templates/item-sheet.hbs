@@ -1,13 +1,9 @@
 <form class="wod20th-sheet wod-item-sheet" autocomplete="off">
-  <header class="wod-header">
-    <div class="wod-field-row" style="align-items: center; justify-content: space-between; width: 100%;">
-      <div class="wod-field" style="flex: 2;">
-        <label>{{localize "system.sheet.name"}}:</label>
-        <input type="text" name="name" value="{{document.name}}" placeholder="{{localize "system.sheet.name"}}" style="font-family: var(--wod-font, serif); font-size: 16px; font-weight: 700; color: var(--wod-gold);" />
-      </div>
-      <div class="wod-badge wod-item-type-badge" style="margin-left: 10px; text-transform: uppercase;">
-        {{document.type}}
-      </div>
+  <header class="wod-item-header-banner">
+    <div class="wod-item-header-main">
+      <label class="wod-item-name-label">{{localize "system.sheet.name"}}:</label>
+      <input type="text" name="name" class="wod-item-name-input" value="{{document.name}}" placeholder="{{localize "system.sheet.name"}}" autocomplete="off" />
+      <span class="wod-badge wod-item-type-badge">{{document.type}}</span>
     </div>
   </header>
 

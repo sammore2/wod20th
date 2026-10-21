@@ -1,5 +1,7 @@
 .agents/
 .agents
+.claude/
+.claude
 node_modules/
 *.log
 .DS_Store
