@@ -1,6 +1,7 @@
 # World of Darkness 20th Edition (WoD20) for LoomVTT
 
 [![Loom VTT](https://img.shields.io/badge/Loom%20VTT-2.0.5--alpha-blueviolet)](https://loomvtt.com)
+[![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fsammore2%2Fwod20th%2Fmain%2Fruleset.json&query=%24.version&label=version&color=c99738)](https://github.com/sammore2/wod20th/releases)
 [![License](https://img.shields.io/badge/license-GPL--3.0--or--later-blue)](LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/sammore2/wod20th/latest/wod20th.zip?label=downloads)](https://github.com/sammore2/wod20th/releases/latest)
 
