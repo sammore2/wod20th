@@ -6,11 +6,11 @@
   "title": "World of Darkness 20th Edition",
   "version": "0.1.0",
   "author": "SamDev",
-  "description": "Estrutura inicial do sistema World of Darkness 20th Edition para LoomVTT.",
-  "license": "MIT",
+  "description": "World of Darkness 20th Edition system implementation for LoomVTT.",
+  "license": "GPL-3.0-or-later",
   "licenseNotice": {
-    "title": "Licenciado sob o Dark Pack",
-    "html": "Partes dos materiais são direitos autorais e marcas registradas da Paradox Interactive AB e são usadas com permissão. Todos os direitos reservados. Para mais informações, visite <a href=\"https://worldofdarkness.com\" target=\"_blank\" rel=\"noopener\">worldofdarkness.com</a>.",
+    "title": "Licensed under the Dark Pack",
+    "html": "Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit <a href=\"https://worldofdarkness.com\" target=\"_blank\" rel=\"noopener\">worldofdarkness.com</a>.",
     "icon": "/marketplace/rulesets/wod20th/assets/logos/darkpack-logo-color.png"
   },
   "backgroundUrl": "/marketplace/rulesets/wod20th/assets/bg-wod20.png",

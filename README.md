@@ -1,54 +1,55 @@
-# World of Darkness 20th Edition (WoD20) para LoomVTT
+# World of Darkness 20th Edition (WoD20) for LoomVTT
 
-Sistema de regras oficial para LoomVTT compatível com a linha de 20º Aniversário do Mundo das Trevas (Storyteller System).
+Official ruleset implementation for LoomVTT compatible with the World of Darkness 20th Anniversary Edition lineup (Storyteller System).
 
-## Funcionalidades e Mecânicas Implementadas
+## Features & Implemented Mechanics
 
-### 1. Motor de Rolagens Storyteller 20th
-- **Parada de d10s** contra Dificuldade configurável (2 a 10).
-- **Cancelamento por 1s** e detecção matemática precisa de **Sucessos**, **Falha Simples** e **Falha Crítica (Botch)**.
-- **Especializações** (10s contam dobro).
-- **Gasto de Força de Vontade** (+1 Sucesso garantido que não é cancelado por 1s).
-- Diálogo modal ágil e card temático no chat do LoomVTT.
+### 1. Storyteller 20th Dice Engine
+- **d10 Dice Pool** against configurable Difficulty (2 to 10).
+- **1s Cancellation** with precise mathematical detection of **Successes**, **Simple Failure**, and **Botch (Critical Failure)**.
+- **Specializations** (10s count as two successes).
+- **Willpower Expenditure** (+1 guaranteed Success that cannot be cancelled by 1s).
+- Fast modal dialog and thematic chat card in LoomVTT chat.
 
-### 2. Arquitetura Modular de Fichas (Zero Redundância & Alta Performance)
-- **Partials Pré-compilados:** O sistema pré-carrega todos os templates na memória (`loadTemplates`), reaproveitando Atributos, Habilidades, Vitalidade, Combate e Biografia/XP em todas as fichas.
-- **5 Abas Completas:**
-  1. *Atributos & Habilidades:* 9 Atributos, 30 Habilidades com campos de especialização (4+) e combos de rolagem em 1 clique.
-  2. *Vantagens & Recursos:* Adaptada dinamicamente conforme o tipo do personagem.
-  3. *Aba Especial:* **Formas Garou** para Lobisomem ou **Esferas & Mágika** para Mago.
-  4. *Vitalidade & Combate:* 7 níveis de dano com penalidades, Iniciativa, Soak e tabelas de Armas/Armaduras.
-  5. *Biografia & Experiência:* Prelúdio/Histórico, Descrição visual, Contatos e rastreador de XP Total e Não-Gasto.
+### 2. Modular Sheet Architecture (Zero Redundancy & High Performance)
+- **Precompiled Partials:** The system preloads all templates into memory (`loadTemplates`), sharing Attributes, Abilities, Health, Combat, and Biography/XP across character sheets.
+- **5 Comprehensive Tabs:**
+  1. *Attributes & Abilities:* 9 Attributes, 30 Abilities with specialization fields (4+ dots), and 1-click roll combos.
+  2. *Advantages & Resources:* Dynamically adapts based on character type.
+  3. *Special Tab:* **Garou Forms** for Werewolf or **Spheres & Magick** for Mage.
+  4. *Health & Combat:* 7 health levels with wound penalties, Initiative, Soak, and Weapon/Armor tables.
+  5. *Biography & Experience:* Prelude/Background, Visual description, Contacts, and Total/Unspent XP tracker.
 
-### 3. Mecânicas Especializadas por Criatura
-- **Lobisomem (W20):**
-  - **As 5 Formas Garou:** *Hominídeo, Glabro, Crinos, Hispo e Lupino* com modificadores de atributos em tempo real, dano agravado em Crinos/Hispo, regeneração rápida e Delírio.
-  - **Tríade Garou:** Fúria (com teste de Frenesi), Gnose (com teste de travessia para a Umbra) e Renome (Glória, Honra, Sabedoria).
-- **Mago (M20):**
-  - **As 9 Esferas:** Correspondência, Entropia, Forças, Matéria, Mente, Primórdio, Vida, Tempo e Espírito.
-  - **Arete & Calculadora de Mágika:** Cálculo automático de dificuldade (Coincidente vs Vulgar com/sem testemunhas) e canalização de Quintessência.
-  - **Roda de Quintessência e Paradoxo (20 pontos)** com teste de Choque de Retorno (*Backlash*).
-- **Vampiro (V20):**
-  - **Tabela de Geração Automatizada:** Geração calcula limite máximo de Sangue (10 a 50) e gasto por turno (1 a 10).
-  - Ação rápida de **Cura com Sangue** (cura 1 nível de dano de contusão ou letal).
-  - Virtudes (Consciência/Convicção, Autocontrole/Instinto, Coragem) e Humanidade/Trilha.
-- **Mortal & Caçador (Hunter):**
-  - Ficha limpa sem poluição de recursos sobrenaturais, com caixas de Convicção para Caçadores.
+### 3. Creature-Specific Mechanics
+- **Werewolf (W20):**
+  - **The 5 Garou Forms:** *Homid, Glabro, Crinos, Hispo, and Lupus* with real-time attribute modifiers, aggravated damage in Crinos/Hispo, rapid regeneration, and Delirium.
+  - **Garou Triad:** Rage (with Frenzy rolls), Gnosis (with stepping sideways into the Umbra), and Renown (Glory, Honor, Wisdom).
+- **Mage (M20):**
+  - **The 9 Spheres:** Correspondence, Entropy, Forces, Matter, Mind, Prime, Life, Time, and Spirit.
+  - **Arete & Magick Calculator:** Automated difficulty calculation (Coincidental vs. Vulgar with/without witnesses) and Quintessence channeling.
+  - **Quintessence & Paradox Wheel (20 points)** with Paradox Backlash test.
+- **Vampire (V20):**
+  - **Automated Generation Table:** Generation calculates maximum Blood Pool (10 to 50) and expenditure per turn (1 to 10).
+  - Quick action for **Blood Healing** (heals 1 bashing or lethal damage level).
+  - Virtues (Conscience/Conviction, Self-Control/Instinct, Courage) and Humanity/Path of Enlightenment.
+- **Mortal & Hunter:**
+  - Clean sheet layout without supernatural clutter, featuring Conviction boxes for Hunters.
 
-### 4. Ficha Universal de Itens (`WoDItemSheet`)
-- Suporte dedicado a **todos os 24 tipos de itens do WoD 20th**:
-  - *Lobisomem:* Fetiches (`fetish`), Talis (`talen`), Ritos (`rite`), Totem (`totem`), Dons (`gift`).
-  - *Mago:* Rotes (`rote`), Maravilhas (`wonder`), Grimórios (`grimoire`), Talismãs (`talisman`), Artefatos (`artifact`).
-  - *Vampiro:* Disciplinas (`discipline`), Rituais (`ritual`), Trilhas (`path`).
-  - *Gerais:* Armas (`weapon`), Armaduras (`armor`), Antecedentes (`background`), Qualidades e Defeitos (`merit`, `flaw`).
+### 4. Universal Item Sheet (`WoDItemSheet`)
+- Dedicated support for **all 24 WoD 20th item types**:
+  - *Werewolf:* Fetishes (`fetish`), Talens (`talen`), Rites (`rite`), Totems (`totem`), Gifts (`gift`).
+  - *Mage:* Rotes (`rote`), Wonders (`wonder`), Grimoires (`grimoire`), Talismans (`talisman`), Artifacts (`artifact`).
+  - *Vampire:* Disciplinas (`discipline`), Rituals (`ritual`), Paths (`path`).
+  - *General:* Weapons (`weapon`), Armor (`armor`), Backgrounds (`background`), Merits & Flaws (`merit`, `flaw`).
 
-### 5. Multi-Idioma (i18n)
-- 100% dos termos, atributos, habilidades, itens e diálogos suportam **Português (Brasil)** e **Inglês**.
+### 5. Multi-Language (i18n)
+- 100% of terms, attributes, abilities, items, and dialogs support both **Portuguese (Brazil)** and **English**.
 
-## Aviso legal
+## Legal Notice
 
 Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit worldofdarkness.com.
 
-Este material não é oficial de World of Darkness. Ele é um projeto de fã, gratuito e não comercial.
+This material is not official World of Darkness material. It is an unofficial fan project, free and non-commercial.
 
 <img src="assets/logos/darkpack-logo-color.png" alt="Dark Pack" width="180" />
+
