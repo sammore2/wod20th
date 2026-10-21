@@ -58,9 +58,7 @@ representative at an online or offline event.
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the project team at robblackmore10@gmail.com. All
-complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior can be reported to the project maintainer through their GitHub account, [@sammore2](https://github.com/sammore2). All complaints will be reviewed and investigated promptly and fairly, and the reporter's privacy will be respected.
 
 All community leaders are obligated to respect the privacy and security of the
 reporter of any incident.

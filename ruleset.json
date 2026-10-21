@@ -6,7 +6,7 @@
   "title": "World of Darkness 20th Edition",
   "version": "0.1.0",
   "author": "SamDev",
-  "description": "World of Darkness 20th Edition system implementation for LoomVTT.",
+  "description": "World of Darkness 20th Anniversary Edition ruleset for Loom VTT (Storyteller System): d10 dice pools against a difficulty, character sheets for Vampire, Werewolf, Mage, Hunter and Mortals, and a universal item sheet. Unofficial, free and non-commercial fan project.",
   "license": "GPL-3.0-or-later",
   "licenseNotice": {
     "title": "Licensed under the Dark Pack",

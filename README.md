@@ -43,7 +43,7 @@ Official ruleset implementation for LoomVTT compatible with the World of Darknes
 - Dedicated support for **all 24 WoD 20th item types**:
   - *Werewolf:* Fetishes (`fetish`), Talens (`talen`), Rites (`rite`), Totems (`totem`), Gifts (`gift`).
   - *Mage:* Rotes (`rote`), Wonders (`wonder`), Grimoires (`grimoire`), Talismans (`talisman`), Artifacts (`artifact`).
-  - *Vampire:* Disciplinas (`discipline`), Rituals (`ritual`), Paths (`path`).
+  - *Vampire:* Disciplines (`discipline`), Rituals (`ritual`), Paths (`path`).
   - *General:* Weapons (`weapon`), Armor (`armor`), Backgrounds (`background`), Merits & Flaws (`merit`, `flaw`).
 
 ### 5. Multi-Language (i18n)
