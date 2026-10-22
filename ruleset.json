@@ -8,6 +8,10 @@
   "author": "SamDev",
   "description": "World of Darkness 20th Anniversary Edition ruleset for Loom VTT (Storyteller System): d10 dice pools against a difficulty, character sheets for Vampire, Werewolf, Mage, Hunter and Mortals, and a universal item sheet. Unofficial, free and non-commercial fan project.",
   "license": "GPL-3.0-or-later",
+  "repository": "https://github.com/sammore2/wod20th",
+  "bugs": "https://github.com/sammore2/wod20th/issues",
+  "manifest": "https://github.com/sammore2/wod20th/releases/latest/download/ruleset.json",
+  "download": "https://github.com/sammore2/wod20th/releases/latest/download/wod20th.zip",
   "licenseNotice": {
     "title": "Licensed under the Dark Pack",
     "html": "Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit <a href=\"https://worldofdarkness.com\" target=\"_blank\" rel=\"noopener\">worldofdarkness.com</a>.",
