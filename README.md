@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-GPL--3.0--or--later-blue)](LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/sammore2/wod20th/latest/wod20th.zip?label=downloads)](https://github.com/sammore2/wod20th/releases/latest)
 
-Official ruleset implementation for LoomVTT compatible with the World of Darkness 20th Anniversary Edition lineup (Storyteller System).
+Unofficial ruleset implementation for LoomVTT compatible with the World of Darkness 20th Anniversary Edition lineup (Storyteller System).
 
 ## Features & Implemented Mechanics
 
